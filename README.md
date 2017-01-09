@@ -1,7 +1,9 @@
 
-Snap! Build Your Own Blocks
+Snap! Build Your Own Blocks - Snapp*!* version
 
-http://snap.berkeley.edu
+
+Gui.js and Objects.js modified to allow instant project loading and getting rid of the control bar.
+
 
 a visual, blocks based programming language
 inspired by Scratch
