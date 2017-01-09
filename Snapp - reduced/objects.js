@@ -5727,14 +5727,6 @@ StageMorph.prototype.step = function () {
         this.changed();
     } else {
         this.threads.step();
-
-        // single-stepping hook:
-        if (this.threads.wantsToPause) {
-            ide = this.parentThatIsA(IDE_Morph);
-            if (ide) {
-                ide.controlBar.pauseButton.refresh();
-            }
-        }
     }
 
     // update watchers
@@ -5760,10 +5752,6 @@ StageMorph.prototype.stepGenericConditions = function (stopAll) {
     });
     if (!hats.length) {
         this.enableCustomHatBlocks = false;
-        ide = this.parentThatIsA(IDE_Morph);
-        if (ide) {
-            ide.controlBar.stopButton.refresh();
-        }
         return;
     }
     hats.forEach(function (block) {
@@ -5924,9 +5912,6 @@ StageMorph.prototype.fireGreenFlagEvent = function () {
             myself.isThreadSafe
         ));
     });
-    if (ide) {
-        ide.controlBar.pauseButton.refresh();
-    }
     return procs;
 };
 
@@ -5945,7 +5930,7 @@ StageMorph.prototype.fireStopAllEvent = function () {
     if (ide) {
         ide.nextSteps([
             nop,
-            function () {ide.controlBar.pauseButton.refresh(); }
+            function () { }
         ]);
     }
 };
