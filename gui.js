@@ -495,7 +495,7 @@ IDE_Morph.prototype.openIn = function (world) {
     }
 
     // Snapp!
-	//this.rawOpenProjectString(this.snapproject);
+	this.rawOpenProjectString(this.snapproject);
 	this.toggleAppMode(true);
 	var handle = setInterval(function () {
 		var allSpritesDone = true;
