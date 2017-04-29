@@ -1724,7 +1724,9 @@ function isRetinaSupported () {
     return backingStorePixelRatio !== window.devicePixelRatio &&
         !(Object.keys(uber).some(function (any) {
             var prop = uber[any];
-            return prop.hasOwnProperty('configurable') && (!prop.configurable);
+            // Snapp!
+            // Workaround for this code failing on NW.js for MacOS
+            return (prop === undefined) || (prop.hasOwnProperty('configurable') && (!prop.configurable));
         })
     );
 }
