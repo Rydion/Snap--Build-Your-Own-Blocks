@@ -82,7 +82,7 @@ SpeechBubbleMorph, RingMorph, isNil, FileReader, TableDialogMorph,
 BlockEditorMorph, BlockDialogMorph, PrototypeHatBlockMorph, localize,
 TableMorph, TableFrameMorph, normalizeCanvas, BooleanSlotMorph*/
 
-modules.objects = '2017-January-09';
+modules.objects = '2017-January-13';
 
 var SpriteMorph;
 var StageMorph;
@@ -8402,6 +8402,7 @@ WatcherMorph.prototype.userMenu = function () {
                 inp.style.left = "0px";
                 inp.style.width = "0px";
                 inp.style.height = "0px";
+                inp.style.display = "none";
                 inp.addEventListener(
                     "change",
                     function () {
