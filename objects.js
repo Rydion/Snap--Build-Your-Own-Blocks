@@ -5945,7 +5945,7 @@ StageMorph.prototype.fireStopAllEvent = function () {
     if (ide) {
         ide.nextSteps([
             nop,
-            function () { //ide.controlBar.pauseButton.refresh(); }
+            function () { /*ide.controlBar.pauseButton.refresh();*/ }
         ]);
     }
 };
