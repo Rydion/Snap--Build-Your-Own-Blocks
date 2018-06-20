@@ -1,0 +1,12 @@
+{
+    "name": "snap-4-snapp",
+    "description": "Snap for Snapp. Full version.",
+    "homepage": "https://github.com/Rydion/Snap-4-Snapp/tree/full-v3.0.0",
+    "author": {
+        "name": "Adrian Hintze",
+        "email": "hintze.adrian@gmail.com",
+        "url": "https://github.com/Rydion/"
+    },
+    "version": "3.0.0",
+    "private": true
+}
