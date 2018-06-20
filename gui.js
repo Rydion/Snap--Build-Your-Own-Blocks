@@ -355,7 +355,8 @@ IDE_Morph.prototype.openIn = function (world) {
             myself.runScripts();
         }
         if (dict.hideControls) {
-            myself.controlBar.hide();
+            // [Adrian] Snapp
+            //myself.controlBar.hide();
             window.onbeforeunload = nop;
         }
         if (dict.noExitWarning) {
@@ -527,13 +528,49 @@ IDE_Morph.prototype.openIn = function (world) {
     } else {
         interpretUrlAnchors.call(this);
     }
+
+    // [Adrian] Snapp
+    // Add code to force project to start automatically after all resources have been loaded.
+    this.rawOpenProjectString(this.snapproject);
+    this.toggleAppMode(true);
+    var handle = setInterval(function () {
+        var allSpritesDone = true;
+        myself.stage.children.forEach(function (child) {
+            if (!child.costumes) { // If the child has no costumes it doesn't matter
+                return;
+            }
+
+            if (!child.costumes.length()) { // If the length of the costume array is 0 it's the same as if it has none
+                return;
+            }
+
+            var costumes = child.costumes.asArray();
+            const someCostumeNotLoaded = costumes.some(function (costume) {
+                return typeof costume.loaded === 'function';
+            });
+
+            if (someCostumeNotLoaded || !child.costume) {
+                allSpritesDone = false;
+            }
+        });
+
+        if (allSpritesDone) {
+            clearInterval(handle);
+            myself.runScripts();
+        }
+    }, 100);
 };
 
 // IDE_Morph construction
 
 IDE_Morph.prototype.buildPanes = function () {
     this.createLogo();
-    this.createControlBar();
+    // [Adrian] Snapp
+    // In the reduced version we do not create the controlBar
+    // this way we deny the user the ability to access the interface
+    // once we switch (programatically) to fullscreen
+    // We need to comment out every access to the controlBar in the rest of the code
+    //this.createControlBar();
     this.createCategories();
     this.createPalette();
     this.createStage();
@@ -1726,9 +1763,10 @@ IDE_Morph.prototype.fixLayout = function (situation) {
 
     if (situation !== 'refreshPalette') {
         // controlBar
-        this.controlBar.setPosition(this.logo.topRight());
-        this.controlBar.setWidth(this.right() - this.controlBar.left());
-        this.controlBar.fixLayout();
+        // Adrian [Snapp]
+        //this.controlBar.setPosition(this.logo.topRight());
+        //this.controlBar.setWidth(this.right() - this.controlBar.left());
+        //this.controlBar.fixLayout();
 
         // categories
         this.categories.setLeft(this.logo.left());

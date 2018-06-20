@@ -1,0 +1,121 @@
+﻿Look for [Adrian] and/or Snapp in files to find the exact location.
+
+
+morphic.js
+Remove some codes that fails on NW.js for whatever reason.
+
+[1551]
+    Remove:
+        return prop.hasOwnProperty('configurable') && (!prop.configurable);
+    Add:
+        // [Adrian] Snapp
+        // Workaround for this code failing on NW.js for MacOS
+        return (prop === undefined) || (prop.hasOwnProperty('configurable') && (!prop.configurable));
+
+[1751]
+    Remove:
+        return prop.hasOwnProperty('configurable') && (!prop.configurable);
+    Add:
+        // [Adrian] Snapp
+        // Workaround for this code failing on NW.js for MacOS
+        return (prop === undefined) || (prop.hasOwnProperty('configurable') && (!prop.configurable));
+
+
+object.js
+Remove all references to controlBar.
+
+[6741]
+    Remove:
+        ide.controlBar.pauseButton.refresh();
+    Add:
+        // [Adrian] Snapp
+        //ide.controlBar.pauseButton.refresh();
+
+[6755]
+    Remove:
+        ide.controlBar.stopButton.refresh();
+    Add:
+        // [Adrian] Snapp
+        //ide.controlBar.pauseButton.refresh();
+
+[6936]
+    Remove:
+        ide.controlBar.stopButton.refresh();
+    Add:
+        // [Adrian] Snapp
+        //ide.controlBar.pauseButton.refresh();
+
+[6963]
+    Remove:
+        function () {ide.controlBar.pauseButton.refresh(); }
+    Add:
+        // [Adrian] Snapp
+        function () { /*ide.controlBar.pauseButton.refresh();*/ }
+
+
+gui.js
+Remove all references to controlBar.
+Add code to autoload and start the project
+
+[358]
+    Remove:
+        myself.controlBar.hide();
+    Add:
+        // [Adrian] Snapp
+        // Remove all references to controlBar
+        //myself.controlBar.hide();
+
+[538]
+    Remove:
+        this.createControlBar();
+    Add:
+        // [Adrian] Snapp
+        // In the reduced version we do not create the controlBar
+        // this way we deny the user the ability to access the interface
+        // once we switch (programatically) to fullscreen
+        // We need to comment out every access to the controlBar in the rest of the code
+        //this.createControlBar();
+
+[1735]
+    Remove:
+        this.controlBar.setPosition(this.logo.topRight());
+        this.controlBar.setWidth(this.right() - this.controlBar.left());
+        this.controlBar.fixLayout();
+    Add:
+        // Adrian [Snapp]
+        //this.controlBar.setPosition(this.logo.topRight());
+        //this.controlBar.setWidth(this.right() - this.controlBar.left());
+        //this.controlBar.fixLayout();
+
+[530]
+    Add:
+        // [Adrian] Snapp
+        // Add code to force project to start automatically after all resources have been loaded.
+        this.rawOpenProjectString(this.snapproject);
+        this.toggleAppMode(true);
+        var handle = setInterval(function () {
+            var allSpritesDone = true;
+            myself.stage.children.forEach(function (child) {
+                if (!child.costumes) { // If the child has no costumes it doesn't matter
+                    return;
+                }
+            
+                if (!child.costumes.length()) { // If the length of the costume array is 0 it's the same as if it has none
+                    return;
+                }
+
+                var costumes = child.costumes.asArray();
+                const someCostumeNotLoaded = costumes.some(function (costume) {
+                    return typeof costume.loaded === 'function';
+                });
+
+                if (someCostumeNotLoaded || !child.costume) {
+                    allSpritesDone = false;
+                }
+            });
+
+            if (allSpritesDone) {
+                clearInterval(handle);
+                myself.runScripts();
+            }
+        }, 100);

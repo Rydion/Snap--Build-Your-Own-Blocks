@@ -70,6 +70,9 @@
     </Content>
     <Content Include="readme.txt" />
     <Content Include="Snap! Connectivity Strategy.pdf" />
+    <Content Include="Snapp Changes.txt">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Sounds\afro_string.wav" />
     <Content Include="Sounds\alien_creak1.wav" />
     <Content Include="Sounds\alien_creak2.wav" />
