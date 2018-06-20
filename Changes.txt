@@ -1,0 +1,41 @@
+﻿Look for [Adrian] and/or Snapp! in files to find the exact location.
+
+
+morphic.js
+
+[Line 1551]
+    Remove:
+        return prop.hasOwnProperty('configurable') && (!prop.configurable);
+    Add:
+        // [Adrian] Snapp!
+        // Workaround for this code failing on NW.js for MacOS
+        return (prop === undefined) || (prop.hasOwnProperty('configurable') && (!prop.configurable));
+
+
+gui.js
+
+[Line 530]
+    Add:
+        // [Adrian] Snapp!
+        // Add code to force project to start automatically after all resources have been loaded.
+        this.rawOpenProjectString(this.snapproject);
+        this.toggleAppMode(true);
+        var handle = setInterval(function () {
+            var allSpritesDone = true;
+            myself.stage.children.forEach(function (child) {
+                var allCostumesLoaded = true;
+                if (child.costumes) {
+                    child.costumes.contents.forEach(function (costume) {
+                        if (typeof costume.loaded === 'function') { allCostumesLoaded = false; }
+                    });
+                }
+                if (!allCostumesLoaded || (child.costumes && child.costumes.length > 0 && !child.costume)) {
+                    allSpritesDone = false;
+                }
+            });
+
+            if (allSpritesDone) {
+                clearInterval(handle);
+                myself.runScripts();
+            }
+        }, 100);
