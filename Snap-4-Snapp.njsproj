@@ -20,7 +20,7 @@
     <Content Include=".gitignore" />
     <Content Include="Backgrounds\BACKGROUNDS" />
     <Content Include="Backgrounds\brick-wall-and-stairs.jpg" />
-    <Content Include="Changes.txt">
+    <Content Include="Snapp Changes.txt">
       <SubType>Code</SubType>
     </Content>
     <Content Include="click.wav" />
