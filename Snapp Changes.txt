@@ -87,6 +87,155 @@ Add code to autoload and start the project
         //this.controlBar.setWidth(this.right() - this.controlBar.left());
         //this.controlBar.fixLayout();
 
+[1805]
+    Remove:
+        (this.height() - this.controlBar.height() * 2 - padding * 2)
+    Add:
+        // [Adrian] Snapp
+        (this.height() - 0 * 2 - padding * 2)
+        //(this.height() - this.controlBar.height() * 2 - padding * 2)
+
+[1867]
+    Remove:
+        this.controlBar.updateLabel();
+    Add:
+        // [Adrian] Snapp
+        //this.controlBar.updateLabel();
+
+[1886]
+    Remove:
+        this.controlBar.height() + 10
+    Add:
+        // [Adrian] Snapp
+        0 + 10
+        //this.controlBar.height() + 10
+
+[2084]
+    Remove:
+        this.controlBar.refreshSlider();
+    Add:
+        // [Adrian] Snapp
+        //this.controlBar.refreshSlider();
+
+[2098]
+    Remove:
+        this.controlBar.startButton.labelString = new SymbolMorph('flash', 14);
+        his.controlBar.startButton.drawNew();
+        this.controlBar.startButton.fixLayout();
+    Add:
+        // [Adrian] Snapp
+        //this.controlBar.startButton.labelString = new SymbolMorph('flash', 14);
+        //this.controlBar.startButton.drawNew();
+        //this.controlBar.startButton.fixLayout();
+
+[2107]
+    Remove:
+        this.controlBar.startButton.labelString = new SymbolMorph('flag', 14);
+        this.controlBar.startButton.drawNew();
+        this.controlBar.startButton.fixLayout();
+    Add:
+        // [Adrian] Snapp
+        //this.controlBar.startButton.labelString = new SymbolMorph('flag', 14);
+        //this.controlBar.startButton.drawNew();
+        //this.controlBar.startButton.fixLayout();
+
+[2567]
+    Remove:
+        pos = this.controlBar.settingsButton.bottomLeft(),
+    Add:
+        // [Adrian] Snapp
+        pos = 0,
+        //pos = this.controlBar.settingsButton.bottomLeft(),
+
+[2713]
+    Remove:
+        pos = this.controlBar.settingsButton.bottomLeft(),
+    Add:
+        // [Adrian] Snapp
+        pos = 0,
+        //pos = this.controlBar.settingsButton.bottomLeft(),
+
+[3141]
+    Remove:
+        pos = this.controlBar.settingsButton.bottomLeft(),
+    Add:
+        // [Adrian] Snapp
+        pos = 0,
+        //pos = this.controlBar.settingsButton.bottomLeft(),
+
+[4607]
+    Remove:
+        this.controlBar.updateLabel();
+    Add:
+        // [Adrian] Snapp
+        //this.controlBar.updateLabel();
+
+[4642]
+    Remove:
+        this.controlBar.updateLabel();
+    Add:
+        // [Adrian] Snapp
+        //this.controlBar.updateLabel();
+
+[4813]
+    Remove:
+        this.controlBar.cloudButton,
+        this.controlBar.projectButton,
+        this.controlBar.settingsButton,
+        this.controlBar.steppingButton,
+        this.controlBar.stageSizeButton,
+    Add:
+        // [Adrian] Snapp
+        //this.controlBar.cloudButton,
+        //this.controlBar.projectButton,
+        //this.controlBar.settingsButton,
+        //this.controlBar.steppingButton,
+        //this.controlBar.stageSizeButton,
+
+[4837]
+    Remove:
+        this.controlBar.setColor(this.color);
+        this.controlBar.appModeButton.refresh();
+    Add:
+        // [Adrian] Snapp
+        //this.controlBar.setColor(this.color);
+        //this.controlBar.appModeButton.refresh();
+
+[4855]
+    Remove:
+        this.controlBar.setColor(this.frameColor);
+    Add:
+        // [Adrian] Snapp
+        //this.controlBar.setColor(this.frameColor);
+
+[4914]
+    Remove:
+        myself.controlBar.stageSizeButton.refresh();
+    Add:
+        // [Adrian] Snapp
+        //myself.controlBar.stageSizeButton.refresh();
+
+[5199]
+    Remove:
+        this.controlBar.stageSizeButton.refresh();
+    Add:
+        // [Adrian] Snapp
+        //this.controlBar.stageSizeButton.refresh();
+
+[9030]
+    Remove:
+        ide.controlBar.stageSizeButton.refresh();
+    Add:
+        // [Adrian] Snapp
+        //ide.controlBar.stageSizeButton.refresh();
+
+[9041]
+    Remove:
+        ide.controlBar.stageSizeButton.refresh();
+    Add:
+        // [Adrian] Snapp
+        //ide.controlBar.stageSizeButton.refresh();
+
 [530]
     Add:
         // [Adrian] Snapp

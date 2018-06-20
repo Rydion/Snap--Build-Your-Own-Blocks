@@ -1802,7 +1802,9 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         } else if (this.isAppMode) {
             this.stage.setScale(Math.floor(Math.min(
                 (this.width() - padding * 2) / this.stage.dimensions.x,
-                (this.height() - this.controlBar.height() * 2 - padding * 2)
+                // [Adrian] Snapp
+                (this.height() - 0 * 2 - padding * 2)
+                //(this.height() - this.controlBar.height() * 2 - padding * 2)
                     / this.stage.dimensions.y
             ) * 10) / 10);
             this.stage.setCenter(this.center());
@@ -1864,7 +1866,8 @@ IDE_Morph.prototype.fixLayout = function (situation) {
 IDE_Morph.prototype.setProjectName = function (string) {
     this.projectName = string.replace(/['"]/g, ''); // filter quotation marks
     this.hasChangedMedia = true;
-    this.controlBar.updateLabel();
+    // [Adrian] Snapp
+    //this.controlBar.updateLabel();
 };
 
 // IDE_Morph resizing
@@ -1882,7 +1885,9 @@ IDE_Morph.prototype.setExtent = function (point) {
     // determine the minimum dimensions making sense for the current mode
     if (this.isAppMode) {
         minExt = StageMorph.prototype.dimensions.add(
-            this.controlBar.height() + 10
+            // [Adrian] Snapp
+            0 + 10
+            //this.controlBar.height() + 10
         );
     } else {
         if (this.stageRatio > 1) {
@@ -2080,7 +2085,8 @@ IDE_Morph.prototype.toggleVariableFrameRate = function () {
 IDE_Morph.prototype.toggleSingleStepping = function () {
     this.stage.threads.toggleSingleStepping();
     this.controlBar.steppingButton.refresh();
-    this.controlBar.refreshSlider();
+    // [Adrian] Snapp
+    //this.controlBar.refreshSlider();
 };
 
 IDE_Morph.prototype.toggleCameraSupport = function () {
@@ -2094,17 +2100,19 @@ IDE_Morph.prototype.toggleCameraSupport = function () {
 IDE_Morph.prototype.startFastTracking = function () {
     this.stage.isFastTracked = true;
     this.stage.fps = 0;
-    this.controlBar.startButton.labelString = new SymbolMorph('flash', 14);
-    this.controlBar.startButton.drawNew();
-    this.controlBar.startButton.fixLayout();
+    // [Adrian] Snapp
+    //this.controlBar.startButton.labelString = new SymbolMorph('flash', 14);
+    //this.controlBar.startButton.drawNew();
+    //this.controlBar.startButton.fixLayout();
 };
 
 IDE_Morph.prototype.stopFastTracking = function () {
     this.stage.isFastTracked = false;
     this.stage.fps = this.stage.frameRate;
-    this.controlBar.startButton.labelString = new SymbolMorph('flag', 14);
-    this.controlBar.startButton.drawNew();
-    this.controlBar.startButton.fixLayout();
+    // [Adrian] Snapp
+    //this.controlBar.startButton.labelString = new SymbolMorph('flag', 14);
+    //this.controlBar.startButton.drawNew();
+    //this.controlBar.startButton.fixLayout();
 };
 
 IDE_Morph.prototype.runScripts = function () {
@@ -2572,7 +2580,9 @@ IDE_Morph.prototype.cloudMenu = function () {
     var menu,
         myself = this,
         world = this.world(),
-        pos = this.controlBar.cloudButton.bottomLeft(),
+        // [Adrian] Snapp
+        pos = 0,
+        //pos = this.controlBar.cloudButton.bottomLeft(),
         shiftClicked = (world.currentKey === 16);
 
     menu = new MenuMorph(this);
@@ -2710,7 +2720,9 @@ IDE_Morph.prototype.settingsMenu = function () {
         stage = this.stage,
         world = this.world(),
         myself = this,
-        pos = this.controlBar.settingsButton.bottomLeft(),
+        // [Adrian] Snapp
+        pos = 0,
+        //pos = this.controlBar.settingsButton.bottomLeft(),
         shiftClicked = (world.currentKey === 16);
 
     function addPreference(label, toggle, test, onHint, offHint, hide) {
@@ -3135,7 +3147,9 @@ IDE_Morph.prototype.projectMenu = function () {
     var menu,
         myself = this,
         world = this.world(),
-        pos = this.controlBar.projectButton.bottomLeft(),
+        // [Adrian] Snapp
+        pos = 0,
+        //pos = this.controlBar.projectButton.bottomLeft(),
         graphicsName = this.currentSprite instanceof SpriteMorph ?
                 'Costumes' : 'Backgrounds',
         shiftClicked = (world.currentKey === 16);
@@ -4601,7 +4615,8 @@ IDE_Morph.prototype.switchToUserMode = function () {
 
     world.isDevMode = false;
     Process.prototype.isCatchingErrors = true;
-    this.controlBar.updateLabel();
+    // [Adrian] Snapp
+    //this.controlBar.updateLabel();
     this.isAutoFill = true;
     this.isDraggable = false;
     this.reactToWorldResize(world.bounds.copy());
@@ -4635,7 +4650,8 @@ IDE_Morph.prototype.switchToDevMode = function () {
 
     world.isDevMode = true;
     Process.prototype.isCatchingErrors = false;
-    this.controlBar.updateLabel();
+    // [Adrian] Snapp
+    //this.controlBar.updateLabel();
     this.isAutoFill = false;
     this.isDraggable = true;
     this.setExtent(world.extent().subtract(100));
@@ -4808,11 +4824,12 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
     var world = this.world(),
         elements = [
             this.logo,
-            this.controlBar.cloudButton,
-            this.controlBar.projectButton,
-            this.controlBar.settingsButton,
-            this.controlBar.steppingButton,
-            this.controlBar.stageSizeButton,
+            // [Adrian] Snapp
+            //this.controlBar.cloudButton,
+            //this.controlBar.projectButton,
+            //this.controlBar.settingsButton,
+            //this.controlBar.steppingButton,
+            //this.controlBar.stageSizeButton,
             this.paletteHandle,
             this.stageHandle,
             this.corral,
@@ -4832,8 +4849,9 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
      		this.toggleSingleStepping();
     	}
         this.setColor(this.appModeColor);
-        this.controlBar.setColor(this.color);
-        this.controlBar.appModeButton.refresh();
+        // [Adrian] Snapp
+        //this.controlBar.setColor(this.color);
+        //this.controlBar.appModeButton.refresh();
         elements.forEach(function (e) {
             e.hide();
         });
@@ -4850,7 +4868,8 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
              this.toggleSingleStepping();
         }
         this.setColor(this.backgroundColor);
-        this.controlBar.setColor(this.frameColor);
+        // [Adrian] Snapp
+        //this.controlBar.setColor(this.frameColor);
         elements.forEach(function (e) {
             e.show();
         });
@@ -4909,7 +4928,8 @@ IDE_Morph.prototype.toggleStageSize = function (isSmall, forcedRatio) {
             null, // easing
             function () {
                 myself.isSmallStage = (targetRatio !== 1);
-                myself.controlBar.stageSizeButton.refresh();
+                // [Adrian] Snapp
+                //myself.controlBar.stageSizeButton.refresh();
             }
         ));
     }
@@ -5196,7 +5216,8 @@ IDE_Morph.prototype.setStageExtent = function (aPoint) {
 
     this.stageRatio = 1;
     this.isSmallStage = false;
-    this.controlBar.stageSizeButton.refresh();
+    // [Adrian] Snapp
+    //this.controlBar.stageSizeButton.refresh();
     this.setExtent(world.extent());
     if (this.isAnimating) {
         zoom();
@@ -9027,7 +9048,8 @@ StageHandleMorph.prototype.mouseDownLeft = function (pos) {
         return null;
     }
     ide.isSmallStage = true;
-    ide.controlBar.stageSizeButton.refresh();
+    // [Adrian] Snapp
+    //ide.controlBar.stageSizeButton.refresh();
     this.step = function () {
         var newPos, newWidth;
         if (world.hand.mouseButton) {
@@ -9039,7 +9061,8 @@ StageHandleMorph.prototype.mouseDownLeft = function (pos) {
         } else {
             this.step = null;
             ide.isSmallStage = (ide.stageRatio !== 1);
-            ide.controlBar.stageSizeButton.refresh();
+            // [Adrian] Snapp
+            //ide.controlBar.stageSizeButton.refresh();
         }
     };
 };
