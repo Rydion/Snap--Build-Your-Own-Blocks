@@ -65,6 +65,9 @@
     <Content Include="LICENSE" />
     <Content Include="morphic.txt" />
     <Content Include="optimizations.txt" />
+    <Content Include="package.json">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="readme.txt" />
     <Content Include="Snap! Connectivity Strategy.pdf" />
     <Content Include="Sounds\afro_string.wav" />
