@@ -1,6 +1,5 @@
 
-Snap! Build Your Own Blocks - Snapp*!* version
-
+Snap! Build Your Own Blocks - Tweaked for Snapp!
 
 Gui.js and Objects.js modified to allow instant project loading and getting rid of the control bar.
 
