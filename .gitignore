@@ -1,4 +1,10 @@
+bin/
 .vs/
+Debug/
+obj/
+*.njsproj
+*.user
+*.sln
 .DS_Store
 *.swp
 .tern-port

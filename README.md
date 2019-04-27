@@ -1,6 +1,5 @@
 
-Snap! Build Your Own Blocks - Snapp*!* version
-
+Snap! Build Your Own Blocks - Tweaked for Snapp!
 
 Gui.js and Objects.js modified to allow instant project loading and getting rid of the control bar.
 
@@ -11,7 +10,7 @@ inspired by Scratch
 written by Jens Mönig and Brian Harvey
 jens@moenig.org, bh@cs.berkeley.edu
 
-Copyright (C) 2018 by Jens Mönig and Brian Harvey
+Copyright (C) 2019 by Jens Mönig and Brian Harvey
 
 Snap! is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
