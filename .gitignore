@@ -1,4 +1,7 @@
+bin/
 .vs/
+Debug/
+obj/
 .DS_Store
 *.swp
 .tern-port
