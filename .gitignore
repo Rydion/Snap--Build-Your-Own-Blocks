@@ -2,7 +2,7 @@ bin/
 .vs/
 Debug/
 obj/
-.njsproj
+*.njsproj
 *.user
 *.sln
 .DS_Store
