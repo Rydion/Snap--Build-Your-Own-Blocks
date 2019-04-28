@@ -7294,8 +7294,7 @@ StageMorph.prototype.step = function () {
         if (this.threads.wantsToPause) {
             ide = this.parentThatIsA(IDE_Morph);
             if (ide) {
-                // [Adrian] Snapp
-                //ide.controlBar.pauseButton.refresh();
+                //ide.controlBar.pauseButton.refresh(); // [Adrian] Snapp
             }
         }
     }
@@ -7328,8 +7327,7 @@ StageMorph.prototype.stepGenericConditions = function (stopAll) {
         this.enableCustomHatBlocks = false;
         ide = this.parentThatIsA(IDE_Morph);
         if (ide) {
-            // [Adrian] Snapp
-            //ide.controlBar.pauseButton.refresh();
+            //ide.controlBar.pauseButton.refresh(); // [Adrian] Snapp
         }
     }
 };
@@ -7490,8 +7488,7 @@ StageMorph.prototype.fireGreenFlagEvent = function () {
         }
     });
     if (ide) {
-        // [Adrian] Snapp
-        //ide.controlBar.pauseButton.refresh();
+        //ide.controlBar.pauseButton.refresh(); // [Adrian] Snapp
     }
     return procs;
 };
@@ -7518,13 +7515,8 @@ StageMorph.prototype.fireStopAllEvent = function () {
     if (ide) {
         ide.nextSteps([
             nop,
-<<<<<<< HEAD:objects.js
-            // [Adrian] Snapp
-            function () { /*ide.controlBar.pauseButton.refresh();*/ }
-=======
-            function () {myself.stopAllActiveSounds(); }, // catch forever loops
-            function () {ide.controlBar.pauseButton.refresh(); }
->>>>>>> origin/master:src/objects.js
+            function () { myself.stopAllActiveSounds(); }, // catch forever loops
+            function () { /*ide.controlBar.pauseButton.refresh();*/ } // [Adrian] Snapp
         ]);
     }
 };

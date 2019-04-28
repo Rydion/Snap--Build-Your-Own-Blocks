@@ -589,12 +589,7 @@ IDE_Morph.prototype.openIn = function (world) {
 
 IDE_Morph.prototype.buildPanes = function () {
     this.createLogo();
-    // [Adrian] Snapp
-    // In the reduced version we do not create the controlBar
-    // this way we deny the user the ability to access the interface
-    // once we switch (programatically) to fullscreen
-    // We need to comment out every access to the controlBar in the rest of the code
-    //this.createControlBar();
+    //this.createControlBar(); // [Adrian] Snapp
     this.createCategories();
     this.createPalette();
     this.createStage();
@@ -1830,9 +1825,7 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         } else if (this.isAppMode) {
             this.stage.setScale(Math.floor(Math.min(
                 (this.width() - padding * 2) / this.stage.dimensions.x,
-                // [Adrian] Snapp
-                (this.height() - 0 * 2 - padding * 2)
-                //(this.height() - this.controlBar.height() * 2 - padding * 2)
+                (this.height() - 0 * 2 - padding * 2) // [Adrian] Snapp
                     / this.stage.dimensions.y
             ) * 10) / 10);
             this.stage.setCenter(this.center());
@@ -1894,8 +1887,7 @@ IDE_Morph.prototype.fixLayout = function (situation) {
 IDE_Morph.prototype.setProjectName = function (string) {
     this.projectName = string.replace(/['"]/g, ''); // filter quotation marks
     this.hasChangedMedia = true;
-    // [Adrian] Snapp
-    //this.controlBar.updateLabel();
+    //this.controlBar.updateLabel(); // [Adrian] Snapp
 };
 
 // IDE_Morph resizing
@@ -1912,21 +1904,13 @@ IDE_Morph.prototype.setExtent = function (point) {
 
     // determine the minimum dimensions making sense for the current mode
     if (this.isAppMode) {
-<<<<<<< HEAD:gui.js
-        minExt = StageMorph.prototype.dimensions.add(
-            // [Adrian] Snapp
-            0 + 10
-            //this.controlBar.height() + 10
-        );
-=======
         if (this.isEmbedMode) {
             minExt = new Point(100, 100);
         } else {
             minExt = StageMorph.prototype.dimensions.add(
-                this.controlBar.height() + 10
+                10 // [Adrian] Snapp
             );
         }
->>>>>>> origin/master:src/gui.js
     } else {
         if (this.stageRatio > 1) {
             minExt = padding.add(StageMorph.prototype.dimensions);
@@ -2141,8 +2125,7 @@ IDE_Morph.prototype.toggleVariableFrameRate = function () {
 IDE_Morph.prototype.toggleSingleStepping = function () {
     this.stage.threads.toggleSingleStepping();
     this.controlBar.steppingButton.refresh();
-    // [Adrian] Snapp
-    //this.controlBar.refreshSlider();
+    //this.controlBar.refreshSlider(); // [Adrian] Snapp
 };
 
 IDE_Morph.prototype.toggleCameraSupport = function () {
@@ -2787,9 +2770,7 @@ IDE_Morph.prototype.settingsMenu = function () {
         stage = this.stage,
         world = this.world(),
         myself = this,
-        // [Adrian] Snapp
-        pos = 0,
-        //pos = this.controlBar.settingsButton.bottomLeft(),
+        pos = 0, // [Adrian] Snapp
         shiftClicked = (world.currentKey === 16);
 
     function addPreference(label, toggle, test, onHint, offHint, hide) {
@@ -4766,8 +4747,7 @@ IDE_Morph.prototype.switchToUserMode = function () {
 
     world.isDevMode = false;
     Process.prototype.isCatchingErrors = true;
-    // [Adrian] Snapp
-    //this.controlBar.updateLabel();
+    //this.controlBar.updateLabel(); // [Adrian] Snapp
     this.isAutoFill = true;
     this.isDraggable = false;
     this.reactToWorldResize(world.bounds.copy());
@@ -4801,8 +4781,7 @@ IDE_Morph.prototype.switchToDevMode = function () {
 
     world.isDevMode = true;
     Process.prototype.isCatchingErrors = false;
-    // [Adrian] Snapp
-    //this.controlBar.updateLabel();
+    //this.controlBar.updateLabel(); // [Adrian] Snapp
     this.isAutoFill = false;
     this.isDraggable = true;
     this.setExtent(world.extent().subtract(100));
@@ -5027,8 +5006,7 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
              this.toggleSingleStepping();
         }
         this.setColor(this.backgroundColor);
-        // [Adrian] Snapp
-        //this.controlBar.setColor(this.frameColor);
+        //this.controlBar.setColor(this.frameColor); // [Adrian] Snapp
         elements.forEach(function (e) {
             e.show();
         });
@@ -5087,8 +5065,7 @@ IDE_Morph.prototype.toggleStageSize = function (isSmall, forcedRatio) {
             null, // easing
             function () {
                 myself.isSmallStage = (targetRatio !== 1);
-                // [Adrian] Snapp
-                //myself.controlBar.stageSizeButton.refresh();
+                //myself.controlBar.stageSizeButton.refresh(); // [Adrian] Snapp
             }
         ));
     }
@@ -5178,7 +5155,7 @@ IDE_Morph.prototype.saveProjectsBrowser = function () {
 IDE_Morph.prototype.microphoneMenu = function () {
     var menu = new MenuMorph(this),
         world = this.world(),
-        pos = this.controlBar.settingsButton.bottomLeft(),
+        pos = 0, // [Adrian] Snapp
         resolutions = ['low', 'normal', 'high', 'max'],
         microphone = this.stage.microphone;
 
@@ -5206,7 +5183,7 @@ IDE_Morph.prototype.microphoneMenu = function () {
 IDE_Morph.prototype.languageMenu = function () {
     var menu = new MenuMorph(this),
         world = this.world(),
-        pos = this.controlBar.settingsButton.bottomLeft(),
+        pos = 0, // [Adrian] Snapp
         myself = this;
     SnapTranslator.languages().forEach(function (lang) {
         menu.addItem(
@@ -5425,8 +5402,7 @@ IDE_Morph.prototype.setStageExtent = function (aPoint) {
 
     this.stageRatio = 1;
     this.isSmallStage = false;
-    // [Adrian] Snapp
-    //this.controlBar.stageSizeButton.refresh();
+    //this.controlBar.stageSizeButton.refresh(); // [Adrian] Snapp
     this.setExtent(world.extent());
     if (this.isAnimating) {
         zoom();
@@ -9394,8 +9370,7 @@ StageHandleMorph.prototype.mouseDownLeft = function (pos) {
         return null;
     }
     ide.isSmallStage = true;
-    // [Adrian] Snapp
-    //ide.controlBar.stageSizeButton.refresh();
+    //ide.controlBar.stageSizeButton.refresh(); // [Adrian] Snapp
     this.step = function () {
         var newPos, newWidth;
         if (world.hand.mouseButton) {
@@ -9407,8 +9382,7 @@ StageHandleMorph.prototype.mouseDownLeft = function (pos) {
         } else {
             this.step = null;
             ide.isSmallStage = (ide.stageRatio !== 1);
-            // [Adrian] Snapp
-            //ide.controlBar.stageSizeButton.refresh();
+            //ide.controlBar.stageSizeButton.refresh(); // [Adrian] Snapp
         }
     };
 };
