@@ -185,7 +185,7 @@ SnapTranslator.dict.ca = {
     'translator_e-mail':
         'bernat@snap4arduino.rocks, jguille2@xtec.cat', // optional
     'last_changed':
-        '2019-04-27', // this, too, will appear in the Translators tab
+        '2019-06-25', // this, too, will appear in the Translators tab
 
     // GUI
     // control bar:
@@ -360,6 +360,8 @@ SnapTranslator.dict.ca = {
         'mostra',
     'hide':
         'amaga',
+    'shown?':
+        'visible?',
     'go to %layer layer':
         'vés a la capa del %layer',
     'go back %n layers':
@@ -409,6 +411,8 @@ SnapTranslator.dict.ca = {
         'baixa el llapis',
     'pen up':
         'puja el llapis',
+    'pen down?':
+        'llapis abaixat?',
     'set pen color to %clr':
         'fixa el color del llapis a %clr',
     'change pen color by %n':
@@ -577,14 +581,26 @@ SnapTranslator.dict.ca = {
         'mode turbo',
     'flat line ends':
         'puntes de llapis planes',
+    'video %vid on %self':
+        '%vid del vídeo en %self',
+    'motion':
+        'moviment',
+    'snap':
+        'instantània',
+    'set video transparency to %n':
+        'fixa la transparència del vídeo a %n',
+    'video capture':
+        'captura de vídeo',
+    'mirror video':
+        'mirall sobre el vídeo',
     'filtered for %clr':
         'filtrat per a %clr',
     'stack size':
         'mida de la pila',
     'frames':
         'frames',
-    'object %spr':
-        'objecte %spr',
+    'object %self':
+        'objecte %self',
     // operators:
     '%n mod %n':
         'residu de dividir %n entre %n',
@@ -605,7 +621,7 @@ SnapTranslator.dict.ca = {
     'false':
         'fals',
     'join %words':
-        'unir %words',
+        'uneix %words',
     'split %s by %delim':
         'divideix %s per %delim',
     'hello':
@@ -672,10 +688,20 @@ SnapTranslator.dict.ca = {
         '%l buida?',
     'map %repRing over %l':
         'mapeja %repRing sobre %l',
-    'keep items such that %predRing from %l':
+    'keep items %predRing from %l':
         'manté els elements on %predRing de %l',
-    'combine with %repRing items of %l':
-        'combina amb %repRing els elements de %l',
+    'find first item %predRing in %l':
+        'primer element on %predRing de %l',
+    'combine %l using %repRing':
+        'combina els elements de %l amb %repRing',
+    '%blitz map %repRing over %l':
+        '%blitz mapeja %repRing sobre %l',
+    '%blitz keep items %predRing from %l':
+        '%blitz manté els elements on %predRing de %l',
+    '%blitz find first item %predRing in %l':
+        '%blitz primer element on %predRing de %l',
+    '%blitz combine %l using %repRing':
+        '%blitz combina els elements de %l amb %repRing',
     'for each %upvar in %l %cla':
         'per cada %upvar de %l %cla',
     'item':
@@ -931,7 +957,13 @@ SnapTranslator.dict.ca = {
         'ajuda...',
     'relabel...':
         'blocs similars...',
-    'duplicate':
+    'compile':
+        'compila',
+    'experimental!\nmake this reporter fast and uninterruptable\nCAUTION: Errors in the ring\ncan break your Snap! session!':
+    'és experimental!\naccelera aquest reportador executant-lo ininterrompudament\nCOMPTE: Errades en les condicions d\'entrada\npodrien penjar la sessió d\'Snap!',
+    'uncompile':
+        'descompila',
+     'duplicate':
         'duplica\'m',
     'make a copy\nand pick it up':
         'crea una còpia\ni fes-la servir',
@@ -1278,6 +1310,10 @@ SnapTranslator.dict.ca = {
         'Valor mínim del lliscador...',
     'Slider maximum value':
         'Valor màxim del lliscador...',
+    'raw data...':
+        'importa sense processar...',
+    'import without attempting to\nparse or format data':
+        'importa contingut sense tractar-lo ni donar-li format',
 
     // list watchers
     'length: ':
@@ -1469,6 +1505,8 @@ SnapTranslator.dict.ca = {
     // delimiters
     'letter':
         'lletra',
+    'word':
+        'paraula',
     'whitespace':
         'espai en blanc',
     'line':
@@ -1515,6 +1553,8 @@ SnapTranslator.dict.ca = {
         'àncora',
     'parent':
         'pare',
+    'temporary?':
+        'temporal?',
     'children':
         'fill',
     'clones':
@@ -2509,7 +2549,7 @@ SnapTranslator.dict.ca = {
     'max':
         'màxima',
 //
-    'play %n hz for %n secs':
+    'play %n Hz for %n secs':
         'toca %n Hz durant %n segons',
 //libreries
     'Text Costumes':
@@ -2531,7 +2571,9 @@ SnapTranslator.dict.ca = {
     '"Bigger" Data':
         'Treballant amb "Big Data"',
     'Frequency Distribution Analysis':
-        'Anàlisi de la disbribució de freqüències',
+        'Anàlisi de la distribució de freqüències',
+    'World Map':
+        'Mapa del món',
     'create variables in program':
         'Creant variables des del programa',
     'Deal with JSON data':
@@ -2600,6 +2642,8 @@ SnapTranslator.dict.ca = {
     'height':
         'alçada',
     'pixel':
+        'píxel',
+    'pixels':
         'píxels',
     '%img of costume %cst':
         '%img del vestit %cst',
@@ -2609,8 +2653,8 @@ SnapTranslator.dict.ca = {
         'efecte %eff',
     'current':
         'actual',
-    'play sound %snd at %rate hz':
-        'toca el so %snd a %rate hz',
+    'play sound %snd at %rate Hz':
+        'toca el so %snd a %rate Hz',
     '%aa of sound %snd':
         '%aa del so %snd',
     'duration':
@@ -2633,8 +2677,8 @@ SnapTranslator.dict.ca = {
         'fixa el balanç a %n',
     'balance':
         'balanç',
-    'play frequency %n hz':
-        'toca la freqüència %n hz',
+    'play frequency %n Hz':
+        'toca la freqüència %n Hz',
     'stop frequency':
         'atura la freqüència',
     'pen %pen':
