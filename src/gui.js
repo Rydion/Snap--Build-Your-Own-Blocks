@@ -552,8 +552,7 @@ IDE_Morph.prototype.openIn = function (world) {
         interpretUrlAnchors.call(this);
     }
 
-    // [Adrian] Snapp!
-    // Add code to force project to start automatically after all resources have been loaded.
+    // [Adrian]: Snapp! Add code to force project to start automatically after all resources have been loaded.
     this.rawOpenProjectString(this.snapproject);
     this.toggleAppMode(true);
     var handle = setInterval(function () {
