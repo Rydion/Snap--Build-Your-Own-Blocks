@@ -1,7 +1,7 @@
 
 Snap! Build Your Own Blocks - Tweaked for Snapp!
 
-* Gui.js and Objects.js modified to allow instant project loading and getting rid of the control bar.
+* src/gui.js and src/objects.js modified to allow instant project loading and elimianting the control bar
 
 
 a visual, blocks based programming language
