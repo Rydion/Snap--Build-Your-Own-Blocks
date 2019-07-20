@@ -185,7 +185,7 @@ SnapTranslator.dict.es = {
     'translator_e-mail':
         'victor.muratalla@yahoo.com / rizzi.cristian@gmail.com', // optional
     'last_changed':
-        '2019-04-27', // this, too, will appear in the Translators tab
+        '2019-06-25', // this, too, will appear in the Translators tab
 
     // GUI
     // control bar:
@@ -1084,10 +1084,16 @@ SnapTranslator.dict.es = {
         '%l vacía?',
     'map %repRing over %l':
         'mapear %repRing sobre %l',
-    'keep items such that %predRing from %l':
+    'keep items %predRing from %l':
         'mantener los elementos donde %predRing de %l',
-    'combine with %repRing items of %l':
-        'combinar con %repRing los elementos de %l',
+    'combine %l using %repRing':
+        'combinar los elementos de %l con %repRing',
+    '%blitz map %repRing over %l':
+        '%blitz mapear %repRing sobre %l',
+    '%blitz keep items %predRing from %l':
+        '%blitz mantener los elementos donde %predRing de %l',
+    '%blitz combine %l using %repRing':
+        '%blitz combinar los elementos de %l con %repRing',
     'for each %upvar in %l %cla':
         'para cada %upvar de %l %cla',
     'item':

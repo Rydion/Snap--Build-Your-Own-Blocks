@@ -108,7 +108,7 @@ BooleanSlotMorph, XML_Serializer, SnapTranslator*/
 
 // Global stuff ////////////////////////////////////////////////////////
 
-modules.byob = '2019-February-15';
+modules.byob = '2019-July-15';
 
 // Declarations
 
@@ -324,7 +324,8 @@ CustomBlockDefinition.prototype.dropDownMenuOf = function (inputName) {
             fname = this.declarations.get(inputName)[2].slice(2);
             if (contains(
                 [
-                    'messagesReceivedMenu',
+                    'messagesMenu',
+                    'messagesReceivedMenu',    //for backward (5.0.0 - 5.0.3) support
                     'objectsMenu',
                     'costumesMenu',
                     'soundsMenu',
@@ -2655,7 +2656,8 @@ BlockLabelFragment.prototype.hasOptions = function () {
 BlockLabelFragment.prototype.hasSpecialMenu = function () {
     return contains(
         [
-            '§_messagesReceivedMenu',
+            '§_messagesMenu',
+            '§_messagesReceivedMenu',    //for backward (5.0.0 - 5.0.3) support
             '§_objectsMenu',
             '§_costumesMenu',
             '§_soundsMenu',
@@ -2849,7 +2851,7 @@ BlockLabelFragmentMorph.prototype.userMenu = function () {
         );
     SymbolMorph.prototype.names.forEach(function (name) {
         menu.addItem(
-            [new SymbolMorph(name, menu.fontSize, symbolColor), name],
+            [new SymbolMorph(name, menu.fontSize, symbolColor), localize(name)],
             name
         );
     });
@@ -3702,7 +3704,7 @@ InputSlotDialogMorph.prototype.addSlotsMenu = function () {
             menu.addMenu(
                 (contains(['%mlt', '%code'], myself.fragment.type) ?
                     on : off) +
-                'special',
+                localize('special'),
                  myself.specialSlotsMenu()
             );
             return menu;
@@ -3764,7 +3766,7 @@ InputSlotDialogMorph.prototype.specialOptionsMenu = function () {
     }
 
     addSpecialOptions('(none)', '');
-    addSpecialOptions('messages', '§_messagesReceivedMenu');
+    addSpecialOptions('messages', '§_messagesMenu');
     addSpecialOptions('objects', '§_objectsMenu');
     // addSpecialOptions('data types', '§_typesMenu');
     addSpecialOptions('costumes', '§_costumesMenu');

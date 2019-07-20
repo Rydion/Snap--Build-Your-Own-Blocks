@@ -72,19 +72,19 @@
 DialogBoxMorph, InputFieldMorph, SpriteIconMorph, BlockMorph, SymbolMorph,
 ThreadManager, VariableFrame, detect, BlockMorph, BoxMorph, Color, Animation,
 CommandBlockMorph, FrameMorph, HatBlockMorph, MenuMorph, Morph, MultiArgMorph,
-Point, ReporterBlockMorph, ScriptsMorph, StringMorph, SyntaxElementMorph,
-TextMorph, contains, degrees, detect, newCanvas, nop, radians, Array,
-CursorMorph, Date, FrameMorph, HandMorph, Math, MenuMorph, Morph, invoke,
-MorphicPreferences, Object, PenMorph, Point, Rectangle, ScrollFrameMorph,
-SliderMorph, String, StringMorph, TextMorph, contains, copy, degrees, detect,
-document, isNaN, isString, newCanvas, nop, parseFloat, radians, window,
-modules, IDE_Morph, VariableDialogMorph, HTMLCanvasElement, Context, List,
-SpeechBubbleMorph, RingMorph, isNil, FileReader, TableDialogMorph,
-BlockEditorMorph, BlockDialogMorph, PrototypeHatBlockMorph, localize,
-TableMorph, TableFrameMorph, normalizeCanvas, BooleanSlotMorph, HandleMorph,
-AlignmentMorph, Process, XML_Element, VectorPaintEditorMorph*/
+Point, ReporterBlockMorph, ScriptsMorph, StringMorph, SyntaxElementMorph,  nop,
+TextMorph, contains, degrees, detect, newCanvas, radians, Array, CursorMorph,
+Date, FrameMorph, HandMorph, Math, MenuMorph, Morph, invoke, MorphicPreferences,
+Object, PenMorph, Point, Rectangle, ScrollFrameMorph, SliderMorph, String,
+StringMorph, TextMorph, contains, copy, degrees, detect, document, isNaN,
+isString, newCanvas, nop, parseFloat, radians, window, modules, IDE_Morph,
+VariableDialogMorph, HTMLCanvasElement, Context, List, RingMorph, VideoMotion,
+SpeechBubbleMorph, InputSlotMorph, isNil, FileReader, TableDialogMorph,
+BlockEditorMorph, BlockDialogMorph, PrototypeHatBlockMorph,  BooleanSlotMorph,
+localize, TableMorph, TableFrameMorph, normalizeCanvas, VectorPaintEditorMorph,
+HandleMorph, AlignmentMorph, Process, XML_Element, WorldMap*/
 
-modules.objects = '2019-April-27';
+modules.objects = '2019-July-15';
 
 var SpriteMorph;
 var StageMorph;
@@ -128,6 +128,8 @@ SpriteMorph.prototype.attributes =
         'volume',
         'balance',
         'sounds',
+        'shown?',
+        'pen down?',
         'scripts'
     ];
 
@@ -387,16 +389,19 @@ SpriteMorph.prototype.initBlocks = function () {
             spec: 'size'
         },
         show: {
-            only: SpriteMorph,
             type: 'command',
             category: 'looks',
             spec: 'show'
         },
         hide: {
-            only: SpriteMorph,
             type: 'command',
             category: 'looks',
             spec: 'hide'
+        },
+        reportShown: {
+            type: 'predicate',
+            category: 'looks',
+            spec: 'shown?'
         },
         goToLayer: {
             only: SpriteMorph,
@@ -454,7 +459,7 @@ SpriteMorph.prototype.initBlocks = function () {
         doPlaySoundAtRate: {
             type: 'command',
             category: 'sound',
-            spec: 'play sound %snd at %rate hz',
+            spec: 'play sound %snd at %rate Hz',
             defaults: ['', 44100]
         },
         doStopAllSounds: {
@@ -484,7 +489,7 @@ SpriteMorph.prototype.initBlocks = function () {
             dev: true,
             type: 'command',
             category: 'sound',
-            spec: 'play %n hz for %n secs',
+            spec: 'play %n Hz for %n secs',
             defaults: [440, 2]
         },
         doSetInstrument: {
@@ -547,7 +552,7 @@ SpriteMorph.prototype.initBlocks = function () {
         playFreq: {
             type: 'command',
             category: 'sound',
-            spec: 'play frequency %n hz',
+            spec: 'play frequency %n Hz',
             defaults: [440]
         },
         stopFreq: {
@@ -581,6 +586,12 @@ SpriteMorph.prototype.initBlocks = function () {
             type: 'command',
             category: 'pen',
             spec: 'pen up'
+        },
+        getPenDown: {
+            only: SpriteMorph,
+            type: 'predicate',
+            category: 'pen',
+            spec: 'pen down?'
         },
         setColor: {
             only: SpriteMorph,
@@ -864,7 +875,24 @@ SpriteMorph.prototype.initBlocks = function () {
             dev: true,
             type: 'reporter',
             category: 'sensing',
-            spec: 'filtered for %clr'
+            spec: 'filter %clr tolerance %n %',
+            defaults: [null, 15]
+        },
+        reportFuzzyTouchingColor: {
+            dev: true,
+            only: SpriteMorph,
+            type: 'predicate',
+            category: 'sensing',
+            spec: 'touching %clr tolerance %n ?',
+            defaults: [null, 15]
+        },
+        reportFuzzyColorIsTouchingColor: {
+            dev: true,
+            only: SpriteMorph,
+            type: 'predicate',
+            category: 'sensing',
+            spec: 'color %clr is touching %clr tolerance %n ?',
+            defaults: [null, null, 15]
         },
         reportAspect: {
             type: 'reporter',
@@ -959,7 +987,8 @@ SpriteMorph.prototype.initBlocks = function () {
         reportObject: {
             type: 'reporter',
             category: 'sensing',
-            spec: 'object %spr'
+            spec: 'object %self',
+            defaults: [['myself']]
         },
         reportURL: {
             type: 'reporter',
@@ -971,7 +1000,7 @@ SpriteMorph.prototype.initBlocks = function () {
             type: 'command',
             category: 'sensing',
             spec: 'set %setting to %b',
-            defaults: [['turbo mode']]
+            defaults: [['video capture']]
         },
         reportGlobalFlag: {
             type: 'predicate',
@@ -1294,15 +1323,44 @@ SpriteMorph.prototype.initBlocks = function () {
             category: 'lists',
             spec: 'map %repRing over %l'
         },
+        reportAtomicMap: {
+            dev: true, // not shown in palette, only accessible via relabelling
+            type: 'reporter',
+            category: 'lists',
+            spec: '%blitz map %repRing over %l'
+        },
         reportKeep: {
             type: 'reporter',
             category: 'lists',
-            spec: 'keep items such that %predRing from %l'
+            spec: 'keep items %predRing from %l'
+        },
+        reportAtomicKeep: {
+            dev: true, // not shown in palette, only accessible via relabelling
+            type: 'reporter',
+            category: 'lists',
+            spec: '%blitz keep items %predRing from %l'
+        },
+        reportFindFirst: {
+            type: 'reporter',
+            category: 'lists',
+            spec: 'find first item %predRing in %l'
+        },
+        reportAtomicFindFirst: {
+            dev: true, // not shown in palette, only accessible via relabelling
+            type: 'reporter',
+            category: 'lists',
+            spec: '%blitz find first item %predRing in %l'
         },
         reportCombine: {
             type: 'reporter',
             category: 'lists',
-            spec: 'combine with %repRing items of %l'
+            spec: 'combine %l using %repRing'
+        },
+        reportAtomicCombine: {
+            dev: true, // not shown in palette, only accessible via relabelling
+            type: 'reporter',
+            category: 'lists',
+            spec: '%blitz combine %l using %repRing'
         },
         doForEach: {
             type: 'command',
@@ -1340,7 +1398,21 @@ SpriteMorph.prototype.initBlocks = function () {
             type: 'reporter',
             category: 'other',
             spec: 'code of %cmdRing'
-        }
+        },
+
+        // Video motion
+        doSetVideoTransparency: {
+            type: 'command',
+            category: 'sensing',
+            spec: 'set video transparency to %n',
+            defaults: [50]
+        },
+        reportVideo: {
+            type: 'reporter',
+            category: 'sensing',
+            spec: 'video %vid on %self',
+            defaults: [['motion'], ['myself']]
+        },
     };
 };
 
@@ -1525,7 +1597,12 @@ SpriteMorph.prototype.blockAlternatives = {
     doSetVar: ['doChangeVar'],
     doChangeVar: ['doSetVar'],
     doShowVar: ['doHideVar'],
-    doHideVar: ['doShowVar']
+    doHideVar: ['doShowVar'],
+
+    // lists - HOFs
+    reportMap: ['reportKeep', 'reportFindFirst'],
+    reportKeep: ['reportFindFirst', 'reportMap'],
+    reportFindFirst: ['reportKeep', 'reportMap']
 };
 
 // SpriteMorph instance creation
@@ -1601,6 +1678,11 @@ SpriteMorph.prototype.init = function (globals) {
     this.cachedPropagation = false; // not to be persisted
     this.inheritedAttributes = []; // 'x position', 'direction', 'size' etc...
 
+    this.imageData = {}; // version: date, pixels: Uint32Array
+    this.motionAmount = 0;
+    this.motionDirection = 0;
+    this.frameNumber = 0;
+
     SpriteMorph.uber.init.call(this);
 
     this.cachedHSV = this.color.hsv();
@@ -1628,6 +1710,7 @@ SpriteMorph.prototype.fullCopy = function (forClone) {
     c.freqPlayer = null;
     c.blocksCache = {};
     c.paletteCache = {};
+    c.imageData = {};
     c.cachedHSV = c.color.hsv();
     arr = [];
     this.inheritedAttributes.forEach(function (att) {
@@ -1847,7 +1930,7 @@ SpriteMorph.prototype.rotationCenter = function () {
     return this.position().add(this.rotationOffset);
 };
 
-SpriteMorph.prototype.colorFiltered = function (aColor) {
+SpriteMorph.prototype.colorFiltered = function (aColor, tolerance) {
     // answer a new Morph containing my image filtered by aColor
     // ignore transparency (alpha)
     var morph = new Morph(),
@@ -1874,7 +1957,9 @@ SpriteMorph.prototype.colorFiltered = function (aColor) {
             src.data[i + 1],
             src.data[i + 2]
         );
-        if (clr.eq(aColor)) {
+        if ((tolerance && clr.isCloseTo(aColor, false, tolerance)) ||
+            clr.eq(aColor)
+        ) {
             dta.data[i] = src.data[i];
             dta.data[i + 1] = src.data[i + 1];
             dta.data[i + 2] = src.data[i + 2];
@@ -1883,6 +1968,61 @@ SpriteMorph.prototype.colorFiltered = function (aColor) {
     }
     ctx.putImageData(dta, 0, 0);
     return morph;
+};
+
+SpriteMorph.prototype.getImageData = function () {
+    // used for video motion detection.
+    // Get sprite image data scaled to 1 an converted to ABGR array,
+    // cache to reduce GC load
+    if (this.version !== this.imageData.version) {
+        var stage = this.parentThatIsA(StageMorph),
+            ext = this.extent(),
+            newExtent = {
+                x: Math.floor(ext.x / stage.scale),
+                y: Math.floor(ext.y / stage.scale)
+            },
+            canvas = newCanvas(newExtent, true),
+            canvasContext,
+            imageData;
+        canvasContext = canvas.getContext("2d");
+        canvasContext.drawImage(
+            this.image,
+            0, 0, Math.floor(ext.x),
+            Math.floor(ext.y),
+            0, 0, newExtent.x, newExtent.y
+        );
+        imageData = canvas.getContext("2d")
+            .getImageData(0, 0, newExtent.x, newExtent.y).data;
+        this.imageData = {
+            version : this.version,
+            pixels : new Uint32Array(imageData.buffer.slice(0))
+        };
+    }
+    return this.imageData.pixels;
+};
+
+SpriteMorph.prototype.projectionSnap = function() {
+    var stage = this.parentThatIsA(StageMorph),
+        center = this.center().subtract(stage.position())
+            .divideBy(stage.scale),
+        cst = this.costume || this.image,
+        offset,
+        snap,
+        ctx;
+
+    if (cst instanceof Costume) {
+        cst = cst.contents;
+    }
+    offset = new Point(
+        Math.floor(center.x - (cst.width / 2)),
+        Math.floor(center.y - (cst.height / 2))
+    );
+    snap = newCanvas(new Point(cst.width, cst.height), true);
+    ctx = snap.getContext('2d');
+    ctx.drawImage(cst, 0, 0);
+    ctx.globalCompositeOperation = 'source-in';
+    ctx.drawImage(stage.projectionLayer(), -offset.x, -offset.y);
+    return new Costume(snap, this.newCostumeName(localize('snap')));
 };
 
 // SpriteMorph block instantiation
@@ -2076,6 +2216,8 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         blocks.push('-');
         blocks.push(block('show'));
         blocks.push(block('hide'));
+        blocks.push(watcherToggle('reportShown'));
+        blocks.push(block('reportShown', this.inheritsAttribute('shown?')));
         blocks.push('-');
         blocks.push(block('goToLayer'));
         blocks.push(block('goBack'));
@@ -2158,6 +2300,8 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         blocks.push('-');
         blocks.push(block('down'));
         blocks.push(block('up'));
+        blocks.push(watcherToggle('getPenDown'));
+        blocks.push(block('getPenDown', this.inheritsAttribute('pen down?')));
         blocks.push('-');
         blocks.push(block('setColor'));
         blocks.push(block('changePenHSVA'));
@@ -2257,8 +2401,10 @@ SpriteMorph.prototype.blockTemplates = function (category) {
 
         blocks.push(block('reportObject'));
         blocks.push('-');
-        blocks.push(block('reportAudio'));
         blocks.push(block('reportURL'));
+        blocks.push(block('reportAudio'));
+        blocks.push(block('reportVideo'));
+        blocks.push(block('doSetVideoTransparency'));
         blocks.push('-');
         blocks.push(block('reportGlobalFlag'));
         blocks.push(block('doSetGlobalFlag'));
@@ -2280,6 +2426,8 @@ SpriteMorph.prototype.blockTemplates = function (category) {
             blocks.push(watcherToggle('reportThreadCount'));
             blocks.push(block('reportThreadCount'));
             blocks.push(block('colorFiltered'));
+            blocks.push(block('reportFuzzyTouchingColor'));
+            blocks.push(block('reportFuzzyColorIsTouchingColor'));
             blocks.push(block('reportStackSize'));
             blocks.push(block('reportFrameCount'));
         }
@@ -2449,6 +2597,7 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         blocks.push('-');
         blocks.push(block('reportMap'));
         blocks.push(block('reportKeep'));
+        blocks.push(block('reportFindFirst'));
         blocks.push(block('reportCombine'));
         blocks.push('-');
         blocks.push(block('doForEach'));
@@ -2636,6 +2785,7 @@ SpriteMorph.prototype.freshPalette = function (category) {
                         'doForEach',
                         'reportMap',
                         'reportKeep',
+                        'reportFindFirst',
                         'reportCombine',
                         'doAddToList',
                         'doDeleteFromList',
@@ -3911,14 +4061,42 @@ SpriteMorph.prototype.corpsify = function () {
     nested parts.
 */
 
-SpriteMorph.prototype.hide = function () {
-    SpriteMorph.uber.hide.call(this);
-    this.parts.forEach(function (part) {part.hide(); });
+SpriteMorph.prototype.show = function () {
+    this.setVisibility(true);
 };
 
-SpriteMorph.prototype.show = function () {
-    SpriteMorph.uber.show.call(this);
-    this.parts.forEach(function (part) {part.show(); });
+SpriteMorph.prototype.hide = function () {
+    this.setVisibility(false);
+};
+
+SpriteMorph.prototype.setVisibility = function (bool, noShadow) {
+    if (bool) {
+        SpriteMorph.uber.show.call(this);
+    } else {
+        SpriteMorph.uber.hide.call(this);
+    }
+
+    // progagate to parts
+    this.parts.forEach(function (part) {part.setVisibility(bool); });
+
+    // propagate to children that inherit my visibility
+    if (!noShadow) {
+        this.shadowAttribute('shown?');
+    }
+    this.instances.forEach(function (instance) {
+        if (instance.cachedPropagation) {
+            if (instance.inheritsAttribute('shown?')) {
+                instance.setVisibility(bool, true);
+            }
+        }
+    });
+};
+
+SpriteMorph.prototype.reportShown = function () {
+    if (this.inheritsAttribute('shown?')) {
+        return this.exemplar.reportShown();
+    }
+    return this.isVisible;
 };
 
 // SpriteMorph pen color
@@ -4045,7 +4223,7 @@ SpriteMorph.prototype.overlappingImage = function (otherSprite) {
     return oImg;
 };
 
-// SpriteMorph stamping
+// SpriteMorph pen ops
 
 SpriteMorph.prototype.doStamp = function () {
     var stage = this.parent,
@@ -4081,8 +4259,6 @@ SpriteMorph.prototype.clear = function () {
     this.parent.clearPenTrails();
 };
 
-// SpeiteMorph writing (printing)
-
 SpriteMorph.prototype.write = function (text, size) {
     // thanks to Michael Ball for contributing this code!
     if (typeof text !== 'string' && typeof text !== 'number') {
@@ -4096,8 +4272,8 @@ SpriteMorph.prototype.write = function (text, size) {
         context = stage.penTrails().getContext('2d'),
         rotation = radians(this.direction() - 90),
         trans = new Point(
-            this.center().x - stage.left(),
-            this.center().y - stage.top()
+            this.rotationCenter().x - stage.left(),
+            this.rotationCenter().y - stage.top()
         ),
         len,
         pos;
@@ -4124,8 +4300,6 @@ SpriteMorph.prototype.write = function (text, size) {
     stage.changed();
 };
 
-// SpriteMorph pen size
-
 SpriteMorph.prototype.setSize = function (size) {
     // pen size
     if (!isNaN(size)) {
@@ -4135,6 +4309,43 @@ SpriteMorph.prototype.setSize = function (size) {
 
 SpriteMorph.prototype.changeSize = function (delta) {
     this.setSize(this.size + (+delta || 0));
+};
+
+// SpriteMorph pen up and down:
+
+SpriteMorph.prototype.down = function () {
+    this.setPenDown(true);
+};
+
+SpriteMorph.prototype.up = function () {
+    this.setPenDown(false);
+};
+
+SpriteMorph.prototype.setPenDown = function (bool, noShadow) {
+    if (bool) {
+        SpriteMorph.uber.down.call(this);
+    } else {
+        SpriteMorph.uber.up.call(this);
+    }
+
+    // propagate to children that inherit my visibility
+    if (!noShadow) {
+        this.shadowAttribute('pen down?');
+    }
+    this.instances.forEach(function (instance) {
+        if (instance.cachedPropagation) {
+            if (instance.inheritsAttribute('pen down?')) {
+                instance.setPenDown(bool, true);
+            }
+        }
+    });
+};
+
+SpriteMorph.prototype.getPenDown = function () {
+    if (this.inheritsAttribute('pen down?')) {
+        return this.exemplar.getPenDown();
+    }
+    return this.isDown;
 };
 
 // SpriteMorph scale
@@ -5273,11 +5484,11 @@ SpriteMorph.prototype.allMessageNames = function () {
     all.forEach(function (script) {
         script.allChildren().forEach(function (morph) {
             var txt;
-            if (morph.selector && contains(
-                ['receiveMessage', 'doBroadcast', 'doBroadcastAndWait'],
-                morph.selector
+            if (morph instanceof InputSlotMorph && morph.choices && contains(
+                ['messagesMenu', 'messagesReceivedMenu'],
+                morph.choices
             )) {
-                txt = morph.inputs()[0].evaluate();
+                txt = morph.evaluate();
                 if (isString(txt) && txt !== '') {
                     if (!contains(msgs, txt)) {
                         msgs.push(txt);
@@ -5959,7 +6170,9 @@ SpriteMorph.prototype.setExemplar = function (another) {
     } else {
         this.variables.parentFrame = this.globalVariables();
     }
-    if (!this.isTemporary) {
+    if (this.isTemporary) {
+        this.cloneOriginName = another.cloneOriginName || another.name;
+    } else {
         ide = this.parentThatIsA(IDE_Morph);
         if (ide) {
             ide.flushBlocksCache();
@@ -6050,7 +6263,9 @@ SpriteMorph.prototype.updatePropagationCache = function () {
             'size',
             'costume #',
             'volume',
-            'balance'
+            'balance',
+            'shown?',
+            'pen down?'
         ],
         function (att) {
             return contains(myself.inheritedAttributes, att);
@@ -6173,6 +6388,14 @@ SpriteMorph.prototype.refreshInheritedAttribute = function (aName) {
     case 'volume':
         this.cachedPropagation = true;
         this.setVolume(this.getVolume(), true);
+        break;
+    case 'shown?':
+        this.cachedPropagation = true;
+        this.setVisibility(this.reportShown(), true);
+        break;
+    case 'pen down?':
+        this.cachedPropagation = true;
+        this.setPenDown(this.getPenDown(), true);
         break;
     case 'balance':
         this.cachedPropagation = true;
@@ -6917,6 +7140,21 @@ StageMorph.prototype.init = function (globals) {
 
     this.remixID = null;
 
+    // projection layer - for video, maps, 3D extensions etc., transient
+    this.projectionSource = null; // offscreen DOM element for video, maps, 3D
+    this.getProjectionImage = null; // function to return a blittable image
+    this.stopProjectionSource = null; // function to turn off video stream etc.
+    this.continuousProjection = false; // turn ON for video
+    this.projectionCanvas = null;
+    this.projectionTransparency = 50;
+
+    // video motion detection, transient
+    this.mirrorVideo = true;
+    this.videoMotion = null;
+
+    // world map client - experimental, transient
+    this.worldMap = new WorldMap();
+
     StageMorph.uber.init.call(this);
 
     this.cachedHSV = this.color.hsv();
@@ -7021,6 +7259,27 @@ StageMorph.prototype.drawOn = function (aCanvas, aRect) {
             w,
             h
         );
+        // projection layer (webcam, maps, etc.)
+        if (this.projectionSource) {
+            ws = w / this.scale;
+            hs = h / this.scale;
+            context.save();
+            context.scale(this.scale, this.scale);
+            context.globalAlpha = 1 - (this.projectionTransparency / 100);
+            context.drawImage(
+                this.projectionLayer(),
+                sl / this.scale,
+                st / this.scale,
+                ws,
+                hs,
+                area.left() / this.scale,
+                area.top() / this.scale,
+                ws,
+                hs
+            );
+            context.restore();
+            this.version = Date.now(); // update watcher icons
+        }
 
         // pen trails
         ws = w / this.scale;
@@ -7102,7 +7361,23 @@ StageMorph.prototype.penTrailsMorph = function () {
     return morph;
 };
 
-StageMorph.prototype.colorFiltered = function (aColor, excludedSprite) {
+StageMorph.prototype.projectionLayer = function () {
+    if (!this.projectionCanvas) {
+        this.projectionCanvas = newCanvas(this.dimensions, true);
+    }
+    return this.projectionCanvas;
+};
+
+StageMorph.prototype.clearProjectionLayer = function () {
+    this.projectionCanvas = null;
+    this.changed();
+};
+
+StageMorph.prototype.colorFiltered = function (
+    aColor,
+    excludedSprite,
+    tolerance
+) {
     // answer a new Morph containing my image filtered by aColor
     // ignore the excludedSprite, because its collision is checked
     // ignore transparency (alpha)
@@ -7131,7 +7406,9 @@ StageMorph.prototype.colorFiltered = function (aColor, excludedSprite) {
             src.data[i + 1],
             src.data[i + 2]
         );
-        if (clr.eq(aColor)) {
+        if ((tolerance && clr.isCloseTo(aColor, false, tolerance)) ||
+            clr.eq(aColor)
+        ) {
             dta.data[i] = src.data[i];
             dta.data[i + 1] = src.data[i + 1];
             dta.data[i + 2] = src.data[i + 2];
@@ -7140,6 +7417,89 @@ StageMorph.prototype.colorFiltered = function (aColor, excludedSprite) {
     }
     ctx.putImageData(dta, 0, 0);
     return morph;
+};
+
+// StageMorph video capture
+
+StageMorph.prototype.startVideo = function() {
+    var myself = this;
+
+    function noCameraSupport() {
+        var dialog = new DialogBoxMorph();
+        dialog.inform(
+            localize('Camera not supported'),
+            localize('Please make sure your web browser is up to date\n' +
+                'and your camera is properly configured. \n\n' +
+                'Some browsers also require you to access Snap!\n' +
+                'through HTTPS to use the camera.\n\n' +
+                'Please replace the "http://" part of the address\n' +
+                'in your browser by "https://" and try again.'),
+            this.world
+        );
+        dialog.fixLayout();
+        dialog.drawNew();
+        if (myself.projectionSource) {
+            myself.projectionSource.remove();
+            myself.projectionSource = null;
+        }
+    }
+    if (this.projectionSource) { // video capture has already been started
+        return;
+    }
+
+    this.projectionSource = document.createElement('video');
+    this.projectionSource.width = this.dimensions.x;
+    this.projectionSource.height = this.dimensions.y;
+    this.projectionSource.hidden = true;
+    document.body.appendChild(this.projectionSource);
+    if (!this.videoMotion) {
+        this.videoMotion = new VideoMotion(
+            this.dimensions.x,
+            this.dimensions.y
+        );
+    }
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                myself.getProjectionImage = myself.getVideoImage;
+                myself.stopProjectionSource = myself.stopVideo;
+                myself.continuousProjection = true;
+                myself.projectionSource.srcObject = stream;
+                myself.projectionSource.play().catch(noCameraSupport);
+                myself.projectionSource.stream = stream;
+            })
+            .catch(noCameraSupport);
+    }
+};
+
+StageMorph.prototype.getVideoImage = function () {
+    return this.projectionSource;
+};
+
+StageMorph.prototype.stopVideo = function() {
+    if (this.projectionSource && this.projectionSource.stream) {
+        this.projectionSource.stream.getTracks().forEach(
+            function (track) {track.stop(); }
+        );
+    }
+    this.videoMotion = null;
+};
+
+StageMorph.prototype.stopProjection = function() {
+    if (this.projectionSource) {
+        this.stopProjectionSource();
+        this.projectionSource.remove();
+        this.projectionSource = null;
+        this.continuousProjection = false;
+    }
+    this.clearProjectionLayer();
+};
+
+StageMorph.prototype.projectionSnap = function() {
+    var snap = newCanvas(this.dimensions, true),
+        ctx = snap.getContext('2d');
+    ctx.drawImage(this.projectionLayer(), 0, 0);
+    return new Costume(snap, this.newCostumeName(localize('snap')));
 };
 
 // StageMorph pixel access:
@@ -7151,6 +7511,17 @@ StageMorph.prototype.getPixelColor = function (aPoint) {
         context = this.penTrailsMorph().image.getContext('2d');
         data = context.getImageData(point.x, point.y, 1, 1);
         if (data.data[3] === 0) {
+            if (this.projectionCanvas) {
+                point = point.divideBy(this.scale);
+                context = this.projectionCanvas.getContext('2d');
+                data = context.getImageData(point.x, point.y, 1, 1);
+                return new Color(
+                    data.data[0],
+                    data.data[1],
+                    data.data[2],
+                    data.data[3] / 255
+                );
+            }
         	return StageMorph.uber.getPixelColor.call(this, aPoint);
         }
         return new Color(
@@ -7309,6 +7680,39 @@ StageMorph.prototype.step = function () {
         });
         this.lastWatcherUpdate = Date.now();
     }
+
+    // projection layer update (e.g. video frame capture)
+    if (this.continuousProjection && this.projectionSource) {
+        this.updateProjection();
+    }
+};
+
+StageMorph.prototype.updateProjection = function () {
+    var context = this.projectionLayer().getContext('2d');
+    context.save();
+    if (this.mirrorVideo) {
+        context.translate(this.dimensions.x, 0);
+        context.scale(-1, 1);
+    }
+    context.drawImage(
+        this.getProjectionImage(),
+        0,
+        0,
+        this.projectionSource.width,
+        this.projectionSource.height
+    );
+    if (this.videoMotion) {
+        this.videoMotion.addFrame(
+            context.getImageData(
+                0,
+                0,
+                this.projectionSource.width,
+                this.projectionSource.height
+            ).data
+        );
+    }
+    context.restore();
+    this.changed();
 };
 
 StageMorph.prototype.stepGenericConditions = function (stopAll) {
@@ -7393,7 +7797,9 @@ StageMorph.prototype.processKeyEvent = function (event, action) {
         keyName = 'down arrow';
         break;
     default:
-        keyName = String.fromCharCode(event.keyCode || event.charCode);
+        keyName = event.key || String.fromCharCode(
+            event.keyCode || event.charCode
+        );
         if (event.ctrlKey || event.metaKey) {
             keyName = 'ctrl ' + (event.shiftKey ? 'shift ' : '') + keyName;
         }
@@ -7504,7 +7910,6 @@ StageMorph.prototype.fireStopAllEvent = function () {
 
     this.keysPressed = {};
     this.threads.stopAll();
-
     this.stopAllActiveSounds();
     this.children.forEach(function (morph) {
         if (morph.stopTalking) {
@@ -7516,6 +7921,7 @@ StageMorph.prototype.fireStopAllEvent = function () {
         ide.nextSteps([
             nop,
             function () {myself.stopAllActiveSounds(); }, // catch forever loops
+            function () {myself.stopProjection(); },
             function () {ide.controlBar.pauseButton.refresh(); }
         ]);
     }
@@ -7672,6 +8078,8 @@ StageMorph.prototype.blockTemplates = function (category) {
         blocks.push('-');
         blocks.push(block('show'));
         blocks.push(block('hide'));
+        blocks.push(watcherToggle('reportShown'));
+        blocks.push(block('reportShown'));
 
     // for debugging: ///////////////
 
@@ -7832,8 +8240,10 @@ StageMorph.prototype.blockTemplates = function (category) {
 
         blocks.push(block('reportObject'));
         blocks.push('-');
-        blocks.push(block('reportAudio'));
         blocks.push(block('reportURL'));
+        blocks.push(block('reportAudio'));
+        blocks.push(block('reportVideo'));
+        blocks.push(block('doSetVideoTransparency'));
         blocks.push('-');
         blocks.push(block('reportGlobalFlag'));
         blocks.push(block('doSetGlobalFlag'));
@@ -8007,6 +8417,7 @@ StageMorph.prototype.blockTemplates = function (category) {
         blocks.push('-');
         blocks.push(block('reportMap'));
         blocks.push(block('reportKeep'));
+        blocks.push(block('reportFindFirst'));
         blocks.push(block('reportCombine'));
         blocks.push('-');
         blocks.push(block('doForEach'));
@@ -8145,6 +8556,18 @@ StageMorph.prototype.thumbnail = function (extentPoint, excludedSprite) {
         this.dimensions.x * this.scale,
         this.dimensions.y * this.scale
     );
+    if (this.projectionSource) {
+        ctx.save();
+        ctx.globalAlpha = 1 - (this.projectionTransparency / 100);
+        ctx.drawImage(
+            this.projectionLayer(),
+            0,
+            0,
+            this.dimensions.x * this.scale,
+            this.dimensions.y * this.scale
+        );
+        ctx.restore();
+    }
     this.children.forEach(function (morph) {
         if (morph.isVisible && (morph !== excludedSprite)) {
             fb = morph.fullBounds();
@@ -8177,6 +8600,8 @@ StageMorph.prototype.show = function () {
     this.isVisible = true;
     this.changed();
 };
+
+StageMorph.prototype.reportShown = SpriteMorph.prototype.reportShown;
 
 // StageMorph cloning override
 
@@ -8982,8 +9407,8 @@ Costume.prototype.flipped = function () {
 };
 
 Costume.prototype.stretched = function (w, h) {
-    w = (Math.sign(w) || 1) * Math.max(10, Math.abs(w));
-    h = (Math.sign(h) || 1) * Math.max(10, Math.abs(h));
+    w = (Math.sign(w) || 1) * Math.max(1, Math.abs(w));
+    h = (Math.sign(h) || 1) * Math.max(1, Math.abs(h));
 
     var canvas = newCanvas(new Point(Math.abs(w), Math.abs(h)), true),
         ctx = canvas.getContext('2d'),
@@ -9982,11 +10407,12 @@ CellMorph.prototype.fixLayout = function () {
 
 CellMorph.prototype.update = function () {
     // special case for observing sprites
-    if (!isSnapObject(this.contents)) {
+    if (!isSnapObject(this.contents) && !(this.contents instanceof Costume)) {
         return;
     }
     if (this.version !== this.contents.version) {
         this.drawNew();
+        this.version = this.contents.version;
     }
 };
 
@@ -10308,6 +10734,7 @@ WatcherMorph.prototype.init = function (
     this.labelText = label || '';
     this.version = null;
     this.objName = '';
+    this.isGhosted = false; // transient, don't persist
 
     // initialize inherited properties
     WatcherMorph.uber.init.call(
@@ -10386,7 +10813,7 @@ WatcherMorph.prototype.setSliderMax = function (num, noUpdate) {
 
 WatcherMorph.prototype.update = function () {
     var newValue, sprite, num, att,
-        isGhosted = false;
+        isInherited = false;
 
     if (this.target && this.getter) {
         this.updateLabel();
@@ -10423,9 +10850,11 @@ WatcherMorph.prototype.update = function () {
                 getCostumeIdx: 'costume #',
                 getScale: 'size',
                 getVolume: 'volume',
-                getPan: 'balance'
+                getPan: 'balance',
+                reportShown: 'shown?',
+                getPenDown: 'pen down?'
             } [this.getter];
-            isGhosted = att ? this.target.inheritsAttribute(att) : false;
+            isInherited = att ? this.target.inheritsAttribute(att) : false;
         }
         if (newValue !== '' && !isNil(newValue)) {
             num = +newValue;
@@ -10433,11 +10862,14 @@ WatcherMorph.prototype.update = function () {
                 newValue = Math.round(newValue * 1000000000) / 1000000000;
             }
         }
-        if (newValue !== this.currentValue) {
+        if (newValue !== this.currentValue ||
+                isInherited !== this.isGhosted ||
+                (newValue.version && (newValue.version !== this.version))) {
             this.changed();
             this.cellMorph.contents = newValue;
+            this.isGhosted = isInherited;
             if (isSnapObject(this.target)) {
-                if (isGhosted) {
+                if (isInherited) {
                     this.cellMorph.setColor(this.readoutColor.lighter(35));
                 } else {
                     this.cellMorph.setColor(this.readoutColor);
@@ -10449,6 +10881,11 @@ WatcherMorph.prototype.update = function () {
                 this.sliderMorph.drawNew();
             }
             this.fixLayout();
+            if (this.currentValue && this.currentValue.version) {
+                this.version = this.currentValue.version;
+            } else {
+                this.version = Date.now();
+            }
             this.currentValue = newValue;
         }
     }
@@ -10711,13 +11148,12 @@ WatcherMorph.prototype.userMenu = function () {
             'import...',
             'importData'
         );
+        menu.addItem(
+            'raw data...',
+            function () {myself.importData(true); },
+            'import without attempting to\nparse or format data'//,
+        );
         if (shiftClicked) {
-            menu.addItem(
-                'import raw data...',
-                function () {myself.importData(true); },
-                'do not attempt to\nparse or format data',
-                new Color(100, 0, 0)
-            );
             if (this.currentValue instanceof List &&
                     this.currentValue.canBeCSV()) {
                 menu.addItem(
