@@ -148,7 +148,7 @@ CustomCommandBlockMorph, SymbolMorph, ToggleButtonMorph, DialMorph*/
 
 // Global stuff ////////////////////////////////////////////////////////
 
-modules.blocks = '2019-July-09';
+modules.blocks = '2019-July-25';
 
 var SyntaxElementMorph;
 var BlockMorph;
@@ -9271,14 +9271,9 @@ InputSlotMorph.prototype.fixLayout = function () {
 // InputSlotMorph events:
 
 InputSlotMorph.prototype.mouseDownLeft = function (pos) {
-    var world;
     if (this.isReadOnly || this.arrow().bounds.containsPoint(pos)) {
         this.escalateEvent('mouseDownLeft', pos);
     } else {
-        world = this.world();
-        if (world) {
-            world.stopEditing();
-        }
         this.selectForEdit().contents().edit();
     }
 };
@@ -11028,6 +11023,10 @@ MultiArgMorph.prototype.addInput = function (contents) {
             this.elementSpec === '%blockVars') {
         name = '';
         i = idx;
+        if (this.elementSpec === '%scriptVars') {
+            // compensate for missing label element
+            i += 1;
+        }
         while (i > 0) {
             name = String.fromCharCode(97 + (i - 1) % 26) + name;
             i = Math.floor((i - 1) / 26);
