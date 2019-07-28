@@ -6,6 +6,34 @@
 * **Notable Fixes:**
 * **Translation Updates:**
 
+## v5.0.8
+* **Notable Fix:**
+    * fixed default names for 'script variables' block
+
+### 2019-07-25
+* blocks: fixed default names for 'script variables' block
+* prepared maintenance release
+
+## v5.0.7
+* **Notable Fix:**
+    * fixed #2041
+
+### 2019-07-24
+* byob: fixed #2041
+* prepared maintenance release
+
+## v5.0.6
+* **Notable Fix:**
+    * IME text editing support, thanks, Zhenlei Jia @swiperthefox!
+
+### 2019-07-23
+* morphic: minor code reformatting for LINTers
+* prepared maintenance release
+
+### 2019-07-22
+* new dev version
+* morphic, blocks: support for enhanced character set keyboard input, thanks, @swiperthefox!
+
 ## v5.0.5
 * **Notable Fix:**
     * fixed cloud project collection support, thanks Bernat!
