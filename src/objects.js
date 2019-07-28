@@ -7665,7 +7665,8 @@ StageMorph.prototype.step = function () {
         if (this.threads.wantsToPause) {
             ide = this.parentThatIsA(IDE_Morph);
             if (ide) {
-                ide.controlBar.pauseButton.refresh();
+                // [Adrian]: Snapp! Remove all references to controlBar
+                //ide.controlBar.pauseButton.refresh();
             }
         }
     }
@@ -7894,7 +7895,8 @@ StageMorph.prototype.fireGreenFlagEvent = function () {
         }
     });
     if (ide) {
-        ide.controlBar.pauseButton.refresh();
+        // [Adrian]: Snapp! Remove all references to controlBar
+        //ide.controlBar.pauseButton.refresh();
     }
     return procs;
 };
@@ -7922,7 +7924,8 @@ StageMorph.prototype.fireStopAllEvent = function () {
             nop,
             function () {myself.stopAllActiveSounds(); }, // catch forever loops
             function () {myself.stopProjection(); },
-            function () {ide.controlBar.pauseButton.refresh(); }
+            // [Adrian]: Snapp! Remove all references to controlBar
+            function () { /*ide.controlBar.pauseButton.refresh();*/ }
         ]);
     }
 };
