@@ -185,7 +185,7 @@ SnapTranslator.dict.de = {
     'translator_e-mail':
         'jens@moenig.org, jadga.huegle@sap.com', // optional
     'last_changed':
-        '2019-04-27', // this, too, will appear in the Translators tab
+        '2019-06-25', // this, too, will appear in the Translators tab
 
     // GUI
     // control bar:
@@ -373,6 +373,8 @@ SnapTranslator.dict.de = {
         'anzeigen',
     'hide':
         'verstecken',
+    'shown?':
+        'angezeigt?',
     'go to %layer layer':
         'gehe nach %layer',
     'front':
@@ -403,8 +405,8 @@ SnapTranslator.dict.de = {
         'stoppe alle Kl\u00e4nge',
     'rest for %n beats':
         'spiele Pause f\u00fcr %n Schl\u00e4ge',
-    'play sound %snd at %rate hz':
-        'spiele Klang %snd mit %rate hz',
+    'play sound %snd at %rate Hz':
+        'spiele Klang %snd mit %rate Hz',
     '%aa of sound %snd':
         '%aa von Klang %snd',
     'duration':
@@ -433,12 +435,12 @@ SnapTranslator.dict.de = {
         'setze Balance auf %n',
     'balance':
         'Balance',
-    'play frequency %n hz':
-        'spiele Frequenz %n hz',
+    'play frequency %n Hz':
+        'spiele Frequenz %n Hz',
     'stop frequency':
         'stoppe Frequenz',
-    'play %n hz for %n secs':
-        'spiele %n hz f\u00fcr %n Sek.',
+    'play %n Hz for %n secs':
+        'spiele %n Hz f\u00fcr %n Sek.',
 
     // "instruments", i.e. wave forms
     '(1) sine':
@@ -457,6 +459,8 @@ SnapTranslator.dict.de = {
         'Stift runter',
     'pen up':
         'Stift hoch',
+    'pen down?':
+        'Stift unten?',
     'set pen color to %clr':
         'setze Stiftfarbe auf %clr',
     'set background color to %clr':
@@ -619,8 +623,8 @@ SnapTranslator.dict.de = {
         '%att von %spr',
     'my %get':
         'Attribut %get',
-    'object %spr':
-        'Objekt %spr',
+    'object %self':
+        'Objekt %self',
     'http:// %s':
         'http:// %s',
     'turbo mode':
@@ -675,6 +679,18 @@ SnapTranslator.dict.de = {
         'hoch',
     'max':
         'max',
+    'video %vid on %self':
+        'Video %vid auf %self',
+    'motion':
+        'Bewegung',
+    'snap':
+        'Snap',
+    'set video transparency to %n':
+        'setze Videotransparenz auf %n',
+    'video capture':
+        'Videoaufnahme',
+    'mirror video':
+        'Video gespiegelt',
     'filtered for %clr':
         'nach %clr gefiltert',
     'stack size':
@@ -773,10 +789,20 @@ SnapTranslator.dict.de = {
         'ist %l leer?',
     'map %repRing over %l':
         'wende %repRing an auf %l',
-    'keep items such that %predRing from %l':
+    'keep items %predRing from %l':
         'behalte Elemente, die %predRing aus %l',
-    'combine with %repRing items of %l':
-        'kombiniere mit %repRing die Elemente von %l',
+    'find first item %predRing in %l':
+        'finde das erste Element, das %predRing in %l',
+    'combine %l using %repRing':
+        'kombiniere die Elemente von %l mit %repRing',
+    '%blitz map %repRing over %l':
+        '%blitz wende %repRing an auf %l',
+    '%blitz keep items %predRing from %l':
+        '%blitz behalte Elemente, die %predRing aus %l',
+    '%blitz find first item %predRing in %l':
+        '%blitz finde das erste Element, das %predRing in %l',
+    '%blitz combine %l using %repRing':
+        '%blitz kombiniere die Elemente von %l mit %repRing',
     'for each %upvar in %l %cla':
         'für jedes %upvar von %l %cla',
     'item':
@@ -1098,6 +1124,10 @@ SnapTranslator.dict.de = {
         'Hilfe...',
     'relabel...':
         'Umbenennen...',
+    'compile':
+        'Kompilieren',
+    'uncompile':
+        'Entkompilieren',
     'duplicate':
         'Duplizieren',
     'make a copy\nand pick it up':
@@ -1525,6 +1555,10 @@ SnapTranslator.dict.de = {
         'Maximalwert...',
     'import...':
         'Importieren...',
+    'raw data...':
+        'Rohdaten...',
+    'import without attempting to\nparse or format data':
+        'Daten unformatiert\nimportieren',
     'Slider minimum value':
         'Minimalwert des Reglers',
     'Slider maximum value':
@@ -1737,6 +1771,8 @@ SnapTranslator.dict.de = {
     // delimiters
     'letter':
         'Buchstabe',
+    'word':
+        'Wort',
     'whitespace':
         'Leerraum',
     'line':
@@ -1785,6 +1821,8 @@ SnapTranslator.dict.de = {
         'Verankerung',
     'parent':
         'Vorfahr',
+    'temporary?':
+        'temporär?',
     'children':
         'Abkömmlinge',
     'clones':
@@ -1807,6 +1845,8 @@ SnapTranslator.dict.de = {
         'Mittelpunkt y',
     'name':
         'Name',
+    'costume':
+        'Kostüm',
     'stage':
         'B\u00fchne',
     'costumes':

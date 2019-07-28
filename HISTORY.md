@@ -1,17 +1,120 @@
-# Snap<em>!</em> (BYOB) History
+# Snap! (BYOB) History
 
-## in development
+## in development:
+* **New Features:**
+* **Notable Changes:**
+* **Notable Fixes:**
+* **Translation Updates:**
 
-* New Features:
+## v5.0.8
+* **Notable Fix:**
+    * fixed default names for 'script variables' block
+
+### 2019-07-25
+* blocks: fixed default names for 'script variables' block
+* prepared maintenance release
+
+## v5.0.7
+* **Notable Fix:**
+    * fixed #2041
+
+### 2019-07-24
+* byob: fixed #2041
+* prepared maintenance release
+
+## v5.0.6
+* **Notable Fix:**
+    * IME text editing support, thanks, Zhenlei Jia @swiperthefox!
+
+### 2019-07-23
+* morphic: minor code reformatting for LINTers
+* prepared maintenance release
+
+### 2019-07-22
+* new dev version
+* morphic, blocks: support for enhanced character set keyboard input, thanks, @swiperthefox!
+
+## v5.0.5
+* **Notable Fix:**
+    * fixed cloud project collection support, thanks Bernat!
+
+## v5.0.4
+* **Notable Fixes:**
+    * fixed a glitch when running a generic WHEN hat block with a literal Boolean input
+    * fixed a bug in the SHOW PICTURE block of the "Pixels" library 
+
+### 2019-07-10
+* threads: fixed a glitch when running a generic WHEN hat block with a literal Boolean input
+* fixed a bug in the SHOW PICTURE block of the "Pixels" library
+* tweaked "messages" menu for custom blocks, thanks, Joan!
+* maintenance release
+
+## v5.0.3
+* **Notable Change:**
+    * CSV-parsing auto-detects the most likely delimiter among comma, semi-colon, pipe and tab
+
+### 2019-07-10
+* threads: enhanced CSV-parsing to auto-detect the most likely delimiter among comma, semi-colon, pipe and tab
+* maintenance release
+
+## v5.0.2
+* **New Feature:**
+    * experimental tolerant color collision detection (in dev mode)
+* **Notable Fixes:**
+    * fixed a layout glitch for variadic C-shaped input slots, thanks, Bernat, for reporting it!
+    * updated the manual for the new WRITE block, thanks, Brian
+
+### 2019-07-09
+* blocks: fixed a layout glitch for variadic C-shaped input slots, thanks, Bernat, for reporting it!
+* updated the manual for the new WRITE block, thanks, Brian (was #2448)
+* maintenance release
+
+### 2019-07-08
+* new dev version
+* morphic, objects, threads: experimental tolerant color collision detection (in dev mode)
+
+## v5.0.1
+* **Notable Changes:**
+    * gliding animation when inserting  blocks using the keyboard
+    * optimized collision detection
+* **Notable Fixes:**
+    * show "browser" source option in project dialog when (deprecated) locally stored projects still exist
+    * list watchers occasionally didn't show cells after reassigning a changed list to a variable
+    * FOREACH over a linked list failed for scripts mutating it
+    * eliminated an occasional empty label line when variadic inputs wrap as a whole, thanks, Mary, for reporting this bug!
+
+### 2019-07-04
+* gui: show "browser" source option in project dialog when (deprecated) locally stored projects still exist
+* maintenance release
+
+### 2019-07-03
+* blocks: eliminated an occasional empty label line when variadic inputs wrap as a whole, thanks, Mary, for reporting this bug!
+
+### 2019-07-02
+* morphic: optimized collision detection by only looking at the alpha channel data
+
+### 2019-07-01
+* new dev version
+* lists: fixed #2446
+* threads: fixed an issue when iterating over a linked list with a script mutating it, thanks, Brian!
+* cloud: fixed collection grid page size, thanks, Bernat! 
+* morphic: fixed a race condition in Morph.glideTo()
+* blocks: added gliding animation when inserting  blocks using the keyboard
+
+## v5
+### 2019-06-27
+* **New Features:**
     * the "tools" library has been integrated as primitives 
     * export 1- /2- dimensional lists with atomic data as CSV
     * export n-dimensional lists with atomic data as JSON
     * import CSV, Text, or JSON via drag & drop
+    * option to import CSV etc. as "raw data", i.e. unparsed
     * parse JSON using the SPLIT reporter
     * new "aspect AT location" reporter in Sensing category for sniffing colors and sprites
     * new blocks for setting and changing the stage's background color
     * new "microphone" reporter in Sensing for getting volume, note, pitch signals and frequencies
     * new experimental live audio-scripting support
+    * new video capturing and video-motion detection support, thanks, Josep!
     * new "object" reporter in the Sensing category for getting a sprite by its name
     * blocks for changing and querying the "flat line ends" setting 
     * selectors for changing and querying "draggable" and "rotation style" settings
@@ -25,21 +128,29 @@
     * new "stretch" primitive for costumes, also for flipping
     * new "get graphic effect" reporter
     * new "get pen attribute" reporter
+    * new "pen down?" predicate
+    * new "shown?" predicate
     * new "write" command in pen category (used to be "label" in tools)
-    * new "numbers", "is empty", "map","keep", "combine" and "for each" primitives in list category
+    * new "numbers", "is empty", "map","keep", "find", "combine" and "for each" primitives in list category
+    * 2 optional formal inputs for rings in MAP, KEEP, FIND, COMBINE: index and source list
+    * new JIT-compiler "blitz-HOF" primitives for "map", "keep", "find" & "combine" via "compile"
     * new "for" loop and "if then else" reporter primitives in the Control category
     * added "neg", "lg" (log2) and "2^" selectors to monadic function reporter in Operators
     * added "^" reporter (power of) in the Operators category
-    * added "width" and "height" as attribute selectors of the OF primitive for the stage
+    * added "width" and "height" to the MY blocks dropdown
+    * added "width" and "height" as attribute selectors of the OF primitive
+    * added "costume" selector to the MY attributes dropdown
+    * added plus (+) and minus (-) keys to sensing and key hat 
     * special context-aware drop-downs for custom blocks
     * new "stick to" submenu in the sprite context menu where applicable
     * multi-line and monospaced "code" input slots for custom blocks
     * new "string" library, thanks, Brian
     * new "text costumes" library for generating costumes from letters or words of text
+    * new "World Map" extension and library for interactive maps
     * graphic effects and sound attributes can now be animated with easing functions
     * enhanced support for embedding Snap in other website, thanks, Bernat!
     * export sounds
-* Notable Changes:
+* **Notable Changes:**
     * added third hsv dimension to pen colors, changed SET and CHANGE pen blocks
     * added transparency (alpha) to pen colors
     * new drop-down options for sprite-layer control ("GO TO front/back")
@@ -49,11 +160,16 @@
     * adjust bottom of STOP block to reflect the menu selection (show / hide bottom notch) 
     * enable dropping commands into all rings
     * colors in the vector editor are now named "Edge color" and "Fill color", thanks, Brian!
+    * renamed "whitespace" option in SPLIT to "word"
+    * made the "name" attribute programmatically settable
+    * made the "temporary?" attibute readyble
     * deprecated storing projects in the browser's localStorage
     * deprecated some (useless) graphic effects
     * additional "publish / unpublish" buttons in the project dialog
     * buttons for saving & loading projects to disk in the project dialog
-* Notable Fixes:
+    * more language options for the Text2Speech library, thanks Joan!
+* **Notable Fixes:**
+    * predicates inside generic WHEN hat blocks can now pass upvars
     * eliminated "clicks" when playing music notes
     * "relabel" blocks with translated drop-down choices
     * transforming arrayed to linked lists without loosing the last element
@@ -62,17 +178,174 @@
     * the language menu now has a "globe" icon (so it can be found in any language)
     * accept a number as input for a sound - interpret as index
     * fixed many costume sizes, thanks, Brian!
-* Translation Updates:
+* **Translation Updates:**
     * Chinese, thanks, Simon!
     * Turkish, thanks, Turgut!
     * Indonesian, thanks, Emanuella!
     * Greek, thanks, Alexandros!
     * Catalan, thanks, Joan!
+    * Portuguese, thanks, Manuel!
     * Spanish
     * German
     * French
 
-### 2019-04-26
+### 2019-06-27
+* updated manual and help screen for COMBINE, thank you, Brian!
+* updated CRAYONS library, thanks you, Brian!
+* prepared release
+
+### 2019-06-25
+* threads: 2 optional formal inputs for rings in MAP, KEEP, FIND, COMBINE: index and source list
+* objects, threads: renamed COMBINE label, switching the inputs
+* objects: took out "relabel" options for COMBINE
+* adjusted German translation to the switched order of inputs for COMBINE
+* adjusted Spanish translation to the switched order of inputs for COMBINE
+* adjusted Portuguese translation to the switched order of inputs for COMBINE
+* adjusted Catalan translation to the switched order of inputs for COMBINE
+* adjusted French translation to the switched order of inputs for COMBINE
+
+### 2019-06-24
+* removed "such that" from KEEP and FIND block labels
+* adjusted German, French, Portuguese, Spanish, Catalan translations
+* updated Catalan translation, thanks, Joan!
+* updated Portuguese translation, thanks, Manuel!
+* fixed #2417
+* fixed #2416
+
+### 2019-06-06
+* Maps: fixed a typecasting issue, thanks, Bernat!
+
+### 2019-06-04
+* Objects, Lists: fixed #682
+* Lists, Tables: fixed table watcher cell updates for costumes (save / load) 
+
+### 2019-06-03
+* Threads: fixed #2249, predicates inside generic WHEN hats should be able to pass upvars
+* Blocks: fixed #1740
+* Blocks: fixed #670 and #1804
+
+### 2019-06-02
+* Objects, Store: made "pen down?" and "shown?" attributes watchable onstage
+* Objects, Blocks: made "shown?" attribute inheritable 
+* Objects, Blocks: made "pen down?" attribute inheritable
+* Objects: made watchers immediately react to inheritance changes
+
+### 2019-06-01
+* Objects: new "pen down?" predicate
+* Objects: new "shown?" predicate
+* updated German translation for "shown?" and "pen down?"
+
+### 2019-05-31
+* Threads: optimized FOREACH performance for large linked lists
+* German translation update (FINDFIRST, WORD, TEMPORARY?)
+* Threads: also allow numbers as sprite names in SET
+* updated "animation" library (purged unused blocks)
+* updated "audioComp" library (purged unused blocks)
+* updated "frequency distribution" library (changed PIPE to use EMPTY prim)
+* Maps: added support for zxy, zyx and xyz style maps and satellite imagery
+* updated "World Map" library with options for Satellite, Streets and Shading
+
+### 2019-05-29
+* Threads, Objects: added "Find First" primitive to lists category
+* Blocks, Threads, Objects: added "blitz" version of FIND
+* Blocks, Threads, Objects:  renamed "whitespace" option in SPLIT to "word"
+* GUI, Threads: made "name" attribut programmatically settable, (I hate my life!)
+* Blocks: made the "temporary?" attibute readable (I hate my life even more!)
+
+### 2019-05-28
+* Maps: added various different tile hosts
+* added "set map style" command to maps library
+
+### 2019-05-25
+* added credits and license information to map costumes
+
+### 2019-05-24
+* new experimental Maps module, our own thin slippy maps client for Snap!
+* adjusted "World Map" library to the new client
+
+### 2019-05-23
+* Objects: changed WRITE block to print at the rotation center instead of the geometric one
+
+### 2019-05-21
+* Objects: fixed stage-size settings bug
+* new "World Map" library
+* enhanced detecting '+' and '-' keys for Firefox
+
+### 2019-05-20
+* Objects, Blocks added plus- and minus- keys to key pressed predicate and hat block 
+* Objects: refactored projection layer update
+* Catalan translation update, thanks, Joan!
+
+### 2019-05-16
+* Objects: more refactoring to generalize projection extensions
+
+### 2019-05-15
+* Objects, Treads: refactored videoLayer so it can also be used for other extensions (maps, 3d)
+* Objects: refactored video frame capture
+
+### 2019-05-14
+* Objects: fixed originalCloneName reference when setting a new parent
+
+### 2019-05-12
+* Threads: fixed costume names and thumbnails for computed costumes
+
+### 2019-05-09
+* Blocks, Objects, Threads: tweaked new video-snap (still capture) feature 
+* Objects: fixed video still "snap on sprite" for Firefox
+* GUI: added credits in the "about" dialog for @jferran6 and @jguille2
+* German and Catalan translation updates
+
+### 2019-05-08
+* Blocks, Objects, Threads: integrated video capture control into global settings prims in Sensing
+* Blocks, Threads: added a %self menu
+* Blocks, Threads, Objects: Finalized Video ops
+* Objects, Threads, GUI: auto-start video capture when querying, stop video on stop-all
+* GUI, Objects: arranged video blocks in palette
+* Blocks, Objects, Threads: new video-snap (still capture) feature 
+
+### 2019-05-07
+* Blocks, Objects, Threads, Video: optimized video motion detection
+* Objects: actually stop the webcam, i.e. all tracks of the media stream when stopping video
+
+### 2019-05-06
+* Blocks, Objects, Threads, Video: New video motion detection feature by Josep Ferràndiz i Farré, under construction
+
+### 2019-05-03
+* Blocks: reverted reordering MY block dropdown by data type - back to similarities
+* Blocks: added "compile / un-compile" options to HOF-prims
+* Objects: added relabelling options for HOF-prims
+* German translation update
+* removed new HOF prims from the "atomic  HOFs" library (aka "Bigger Data")
+* edited "parallelization" library to use the new "is (list) empty" primitive
+
+### 2019-05-02
+* Blocks: reordered MY block dropdown by data type
+* Blocks, Threads: added "width" and "height" to the MY block's dropdown
+* Blocks, Threads: added "width" and "height" to the OF block's dropdown for sprites
+* Blocks, Objects: added hidden "blitz-HOF primitives" for MAP, KEEP and COMBINE 
+* updated German, Catalan, Spanish and French translations for "blitz-HOF" primitives
+* duplicated help-screens for "map" & friends for their atomic "blitz" variants
+* Objects: expose "import raw data" option in variable watcher context menu
+* German translation update for "raw data" importing feature
+* Threads: added JIT-Compiler support for new IF/ELSE reporter primitive
+
+### 2019-04-30
+* Blocks, Threads: added "id" to image attributes dropdown
+* Blocks, Threads: removed "id" from image attributes
+* Blocks, Threads: added "costume" selector to MY dropdown
+* German translation update
+* Objects: adjusted costume stretch minimum to 1 pixel
+
+### 2019-04-29
+* optimized animation library
+* Threads: stop audio frequency instances when "stop all" is executed
+
+### 2019-04-28
+* more helpscreens and bignum library update, thanks, Brian!
+* more language options for the Text2Speech library, thanks, Joan!
+* Objects, translations: changed "hz" typo to "Hz", thanks, Brian, for catching this!
+
+### 2019-04-27
 * Lists, Threads, Objects: new "is empty" predicate primitive in List category
 * Threads, Objects: new "numbers" constructor primitive in List category
 * Threads: renamed "aggregation" property to "accumulator"
