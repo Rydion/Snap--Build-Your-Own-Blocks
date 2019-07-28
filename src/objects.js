@@ -7732,7 +7732,8 @@ StageMorph.prototype.stepGenericConditions = function (stopAll) {
         this.enableCustomHatBlocks = false;
         ide = this.parentThatIsA(IDE_Morph);
         if (ide) {
-            ide.controlBar.stopButton.refresh();
+            // [Adrian]: Snapp! Remove all references to controlBar
+            //ide.controlBar.pauseButton.refresh();
         }
     }
 };

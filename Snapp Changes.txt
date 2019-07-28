@@ -31,6 +31,13 @@ Remove all references to controlBar.
 	    // [Adrian]: Snapp! Remove all references to controlBar
         //ide.controlBar.pauseButton.refresh();
 
+[7735]
+    Replace:
+        ide.controlBar.pauseButton.refresh();
+    With:
+	    // [Adrian]: Snapp! Remove all references to controlBar
+        //ide.controlBar.pauseButton.refresh();
+
 [7898]
     Replace:
         ide.controlBar.pauseButton.refresh();
