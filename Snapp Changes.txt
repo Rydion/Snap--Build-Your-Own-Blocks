@@ -1,15 +1,4 @@
-﻿Look for [Adrian] and/or Snapp! in files to find the exact location.
-
-
-morphic.js
-
-[Line 1551]
-    Remove:
-        return prop.hasOwnProperty('configurable') && (!prop.configurable);
-    Add:
-        // [Adrian]: Snapp! Workaround for this code failing on NW.js for MacOS
-        return (prop === undefined) || (prop.hasOwnProperty('configurable') && (!prop.configurable));
-
+﻿Look for [Adrian] in files to find the exact location.
 
 gui.js
 
