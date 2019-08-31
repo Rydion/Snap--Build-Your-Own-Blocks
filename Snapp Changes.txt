@@ -1,49 +1,31 @@
-﻿Look for [Adrian] and/or Snapp in files to find the exact location.
-
-
-morphic.js
-Remove some codes that fails on NW.js for whatever reason.
-
-[1550]
-    Replace:
-        return prop.hasOwnProperty('configurable') && (!prop.configurable);
-    With:
-        // [Adrian]: Snapp! Workaround for this code failing on NW.js for MacOS
-        return (prop === undefined) || (prop.hasOwnProperty('configurable') && (!prop.configurable));
-
-[1750]
-    Replace:
-        return prop.hasOwnProperty('configurable') && (!prop.configurable);
-    With:
-        // [Adrian]: Snapp! Workaround for this code failing on NW.js for MacOS
-        return (prop === undefined) || (prop.hasOwnProperty('configurable') && (!prop.configurable));
+﻿Look for [Adrian] in files to find the exact location.
 
 
 object.js
 Remove all references to controlBar.
 
-[7668]
+[7795]
     Replace:
         ide.controlBar.pauseButton.refresh();
     With:
 	    // [Adrian]: Snapp! Remove all references to controlBar
         //ide.controlBar.pauseButton.refresh();
 
-[7735]
+[7862]
     Replace:
         ide.controlBar.pauseButton.refresh();
     With:
 	    // [Adrian]: Snapp! Remove all references to controlBar
         //ide.controlBar.pauseButton.refresh();
 
-[7898]
+[8026]
     Replace:
         ide.controlBar.pauseButton.refresh();
     With:
 		// [Adrian]: Snapp! Remove all references to controlBar
         //ide.controlBar.pauseButton.refresh();
 
-[7927]
+[8055]
     Replace:
         function () {ide.controlBar.pauseButton.refresh(); }
     With:

@@ -1551,8 +1551,7 @@ function enableRetinaSupport() {
     // [Jens]: check whether properties can be overridden, needed for Safari
     if (Object.keys(uber).some(function (any) {
         var prop = uber[any];
-        // [Adrian]: Snapp! Workaround for this code failing on NW.js for MacOS
-        return (prop === undefined) || (prop.hasOwnProperty('configurable') && (!prop.configurable));
+        return (prop.hasOwnProperty('configurable') && (!prop.configurable));
     })) {return; }
 
     function getPixelRatio(imageSource) {
@@ -1750,8 +1749,7 @@ function isRetinaSupported () {
     return backingStorePixelRatio !== window.devicePixelRatio &&
         !(Object.keys(uber).some(function (any) {
             var prop = uber[any];
-            // [Adrian]: Snapp! Workaround for this code failing on NW.js for MacOS
-            return (prop === undefined) || (prop.hasOwnProperty('configurable') && (!prop.configurable));
+            return (prop.hasOwnProperty('configurable') && (!prop.configurable));
         })
     );
 }
