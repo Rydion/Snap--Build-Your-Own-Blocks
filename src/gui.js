@@ -606,6 +606,36 @@ IDE_Morph.prototype.openIn = function (world) {
 
     world.keyboardFocus = this.stage;
     this.warnAboutIE();
+
+    // [Adrian]: Snapp! Add code to force project to start automatically after all resources have been loaded.
+    this.rawOpenProjectString(this.snapproject);
+    this.toggleAppMode(true);
+    var handle = setInterval(function () {
+        var allSpritesDone = true;
+        myself.stage.children.forEach(function (child) {
+            if (!child.costumes) { // If the child has no costumes it doesn't matter
+                return;
+            }
+
+            if (!child.costumes.length()) { // If the length of the costume array is 0 it's the same as if it has none
+                return;
+            }
+
+            var costumes = child.costumes.asArray();
+            const someCostumeNotLoaded = costumes.some(function (costume) {
+                return typeof costume.loaded === 'function';
+            });
+
+            if (someCostumeNotLoaded || !child.costume) {
+                allSpritesDone = false;
+            }
+        });
+
+        if (allSpritesDone) {
+            clearInterval(handle);
+            myself.runScripts();
+        }
+    }, 100);
 };
 
 // IDE_Morph construction

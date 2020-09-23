@@ -2,7 +2,7 @@
 
 gui.js
 
-[Line 555]
+[Line 610]
     Add:
         // [Adrian]: Snapp! Add code to force project to start automatically after all resources have been loaded.
         this.rawOpenProjectString(this.snapproject);
