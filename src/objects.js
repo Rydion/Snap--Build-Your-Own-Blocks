@@ -7910,7 +7910,8 @@ StageMorph.prototype.step = function () {
         if (this.threads.wantsToPause) {
             ide = this.parentThatIsA(IDE_Morph);
             if (ide) {
-                ide.controlBar.pauseButton.refresh();
+                // [Adrian]: Snapp! Remove all references to controlBar
+                //ide.controlBar.pauseButton.refresh();
             }
         }
     }
@@ -7973,7 +7974,8 @@ StageMorph.prototype.stepGenericConditions = function (stopAll) {
         this.enableCustomHatBlocks = false;
         ide = this.parentThatIsA(IDE_Morph);
         if (ide) {
-            ide.controlBar.stopButton.refresh();
+            // [Adrian]: Snapp! Remove all references to controlBar
+            //ide.controlBar.stopButton.refresh();
         }
     }
 };
@@ -8131,7 +8133,8 @@ StageMorph.prototype.fireGreenFlagEvent = function () {
         }
     });
     if (ide) {
-        ide.controlBar.pauseButton.refresh();
+        // [Adrian]: Snapp! Remove all references to controlBar
+        //ide.controlBar.pauseButton.refresh();
     }
     return procs;
 };
@@ -8158,7 +8161,8 @@ StageMorph.prototype.fireStopAllEvent = function () {
             nop,
             () => this.stopAllActiveSounds(), // catch forever loops
             () => this.stopProjection(),
-            () => ide.controlBar.pauseButton.refresh()
+            // [Adrian]: Snapp! Remove all references to controlBar
+            () => { /*ide.controlBar.pauseButton.refresh()*/ }
         ]);
     }
 };

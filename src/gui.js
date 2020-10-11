@@ -349,7 +349,8 @@ IDE_Morph.prototype.openIn = function (world) {
             myself.runScripts();
         }
         if (dict.hideControls) {
-            myself.controlBar.hide();
+            // [Adrian]: Remove all references to controlBar
+            //myself.controlBar.hide();
             window.onbeforeunload = nop;
         }
         if (dict.noExitWarning) {
@@ -606,13 +607,44 @@ IDE_Morph.prototype.openIn = function (world) {
 
     world.keyboardFocus = this.stage;
     this.warnAboutIE();
+
+    // [Adrian]: Snapp! Add code to force project to start automatically after all resources have been loaded.
+    this.rawOpenProjectString(this.snapproject);
+    this.toggleAppMode(true);
+    var handle = setInterval(function () {
+        var allSpritesDone = true;
+        myself.stage.children.forEach(function (child) {
+            if (!child.costumes) { // If the child has no costumes it doesn't matter
+                return;
+            }
+
+            if (!child.costumes.length()) { // If the length of the costume array is 0 it's the same as if it has none
+                return;
+            }
+
+            var costumes = child.costumes.asArray();
+            const someCostumeNotLoaded = costumes.some(function (costume) {
+                return typeof costume.loaded === 'function';
+            });
+
+            if (someCostumeNotLoaded || !child.costume) {
+                allSpritesDone = false;
+            }
+        });
+
+        if (allSpritesDone) {
+            clearInterval(handle);
+            myself.runScripts();
+        }
+    }, 100);
 };
 
 // IDE_Morph construction
 
 IDE_Morph.prototype.buildPanes = function () {
     this.createLogo();
-    this.createControlBar();
+    // [Adrian]: Remove all references to controlBar
+    //this.createControlBar();
     this.createCategories();
     this.createPalette();
     this.createStage();
@@ -1895,9 +1927,10 @@ IDE_Morph.prototype.fixLayout = function (situation) {
 
     if (situation !== 'refreshPalette') {
         // controlBar
-        this.controlBar.setPosition(this.logo.topRight());
-        this.controlBar.setWidth(this.right() - this.controlBar.left());
-        this.controlBar.fixLayout();
+        // [Adrian]: Remove all references to controlBar
+        //this.controlBar.setPosition(this.logo.topRight());
+        //this.controlBar.setWidth(this.right() - this.controlBar.left());
+        //this.controlBar.fixLayout();
 
         // categories
         this.categories.setLeft(this.logo.left());
@@ -1934,7 +1967,8 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         } else if (this.isAppMode) {
             this.stage.setScale(Math.floor(Math.min(
                 (this.width() - padding * 2) / this.stage.dimensions.x,
-                (this.height() - this.controlBar.height() * 2 - padding * 2)
+                // [Adrian]: Remove all references to controlBar
+                (this.height() - 0 * 2 - padding * 2)
                     / this.stage.dimensions.y
             ) * 10) / 10);
             this.stage.setCenter(this.center());
@@ -1996,7 +2030,8 @@ IDE_Morph.prototype.fixLayout = function (situation) {
 IDE_Morph.prototype.setProjectName = function (string) {
     this.projectName = string.replace(/['"]/g, ''); // filter quotation marks
     this.hasChangedMedia = true;
-    this.controlBar.updateLabel();
+    // [Adrian]: Remove all references to controlBar
+    //this.controlBar.updateLabel();
 };
 
 // IDE_Morph resizing
@@ -2017,7 +2052,8 @@ IDE_Morph.prototype.setExtent = function (point) {
             minExt = new Point(100, 100);
         } else {
             minExt = StageMorph.prototype.dimensions.add(
-                this.controlBar.height() + 10
+                // [Adrian]: Remove all references to controlBar
+                10
             );
         }
     } else {
@@ -2257,7 +2293,8 @@ IDE_Morph.prototype.toggleVariableFrameRate = function () {
 IDE_Morph.prototype.toggleSingleStepping = function () {
     this.stage.threads.toggleSingleStepping();
     this.controlBar.steppingButton.refresh();
-    this.controlBar.refreshSlider();
+    // [Adrian]: Remove all references to controlBar
+    //this.controlBar.refreshSlider();
 };
 
 IDE_Morph.prototype.toggleCameraSupport = function () {
@@ -2271,19 +2308,21 @@ IDE_Morph.prototype.toggleCameraSupport = function () {
 IDE_Morph.prototype.startFastTracking = function () {
     this.stage.isFastTracked = true;
     this.stage.fps = 0;
-    this.controlBar.startButton.labelString = new SymbolMorph('flash', 14);
-    this.controlBar.startButton.createLabel();
-    this.controlBar.startButton.fixLayout();
-    this.controlBar.startButton.rerender();
+    // [Adrian]: Remove all references to controlBar
+    //this.controlBar.startButton.labelString = new SymbolMorph('flash', 14);
+    //this.controlBar.startButton.createLabel();
+    //this.controlBar.startButton.fixLayout();
+    //this.controlBar.startButton.rerender();
 };
 
 IDE_Morph.prototype.stopFastTracking = function () {
     this.stage.isFastTracked = false;
     this.stage.fps = this.stage.frameRate;
-    this.controlBar.startButton.labelString = new SymbolMorph('flag', 14);
-    this.controlBar.startButton.createLabel();
-    this.controlBar.startButton.fixLayout();
-    this.controlBar.startButton.rerender();
+    // [Adrian]: Remove all references to controlBar
+    //this.controlBar.startButton.labelString = new SymbolMorph('flag', 14);
+    //this.controlBar.startButton.createLabel();
+    //this.controlBar.startButton.fixLayout();
+    //this.controlBar.startButton.rerender();
 };
 
 IDE_Morph.prototype.runScripts = function () {
@@ -5063,7 +5102,8 @@ IDE_Morph.prototype.switchToUserMode = function () {
 
     world.isDevMode = false;
     Process.prototype.isCatchingErrors = true;
-    this.controlBar.updateLabel();
+    // [Adrian]: Remove all references to controlBar
+    //this.controlBar.updateLabel();
     this.isAutoFill = true;
     this.isDraggable = false;
     this.reactToWorldResize(world.bounds.copy());
@@ -5096,7 +5136,8 @@ IDE_Morph.prototype.switchToDevMode = function () {
 
     world.isDevMode = true;
     Process.prototype.isCatchingErrors = false;
-    this.controlBar.updateLabel();
+    // [Adrian]: Remove all references to controlBar
+    //this.controlBar.updateLabel();
     this.isAutoFill = false;
     this.isDraggable = true;
     this.setExtent(world.extent().subtract(100));
@@ -5277,11 +5318,12 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
     var world = this.world(),
         elements = [
             this.logo,
-            this.controlBar.cloudButton,
-            this.controlBar.projectButton,
-            this.controlBar.settingsButton,
-            this.controlBar.steppingButton,
-            this.controlBar.stageSizeButton,
+            // [Adrian]: Remove all references to controlBar
+            //this.controlBar.cloudButton,
+            //this.controlBar.projectButton,
+            //this.controlBar.settingsButton,
+            //this.controlBar.steppingButton,
+            //this.controlBar.stageSizeButton,
             this.paletteHandle,
             this.stageHandle,
             this.corral,
@@ -5300,8 +5342,9 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
      		this.toggleSingleStepping();
     	}
         this.setColor(this.appModeColor);
-        this.controlBar.setColor(this.color);
-        this.controlBar.appModeButton.refresh();
+        // [Adrian]: Remove all references to controlBar
+        //this.controlBar.setColor(this.color);
+        //this.controlBar.appModeButton.refresh();
         elements.forEach(e =>
             e.hide()
         );
@@ -5318,7 +5361,8 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
              this.toggleSingleStepping();
         }
         this.setColor(this.backgroundColor);
-        this.controlBar.setColor(this.frameColor);
+        // [Adrian]: Remove all references to controlBar
+        //this.controlBar.setColor(this.frameColor);
         elements.forEach(e =>
             e.show()
         );
@@ -5375,7 +5419,8 @@ IDE_Morph.prototype.toggleStageSize = function (isSmall, forcedRatio) {
             null, // easing
             () => {
                 myself.isSmallStage = (targetRatio !== 1);
-                myself.controlBar.stageSizeButton.refresh();
+                // [Adrian]: Remove all references to controlBar
+                //myself.controlBar.stageSizeButton.refresh();
             }
         ));
     }
@@ -5462,7 +5507,8 @@ IDE_Morph.prototype.saveProjectsBrowser = function () {
 IDE_Morph.prototype.microphoneMenu = function () {
     var menu = new MenuMorph(this),
         world = this.world(),
-        pos = this.controlBar.settingsButton.bottomLeft(),
+        // [Adrian]: Remove all references to controlBar
+        pos = 0,
         resolutions = ['low', 'normal', 'high', 'max'],
         microphone = this.stage.microphone,
         tick = new SymbolMorph(
@@ -5503,7 +5549,8 @@ IDE_Morph.prototype.microphoneMenu = function () {
 IDE_Morph.prototype.languageMenu = function () {
     var menu = new MenuMorph(this),
         world = this.world(),
-        pos = this.controlBar.settingsButton.bottomLeft(),
+        // [Adrian]: Remove all references to controlBar
+        pos = 0,
         tick = new SymbolMorph(
             'tick',
             MorphicPreferences.menuFontSize * 0.75
@@ -5775,7 +5822,8 @@ IDE_Morph.prototype.setStageExtent = function (aPoint) {
 
     this.stageRatio = 1;
     this.isSmallStage = false;
-    this.controlBar.stageSizeButton.refresh();
+    // [Adrian]: Remove all references to controlBar
+    //this.controlBar.stageSizeButton.refresh();
     this.stage.stopVideo();
     this.setExtent(world.extent());
     if (this.isAnimating) {
@@ -9689,7 +9737,8 @@ StageHandleMorph.prototype.mouseDownLeft = function (pos) {
         return null;
     }
     ide.isSmallStage = true;
-    ide.controlBar.stageSizeButton.refresh();
+    // [Adrian]: Remove all references to controlBar
+    //ide.controlBar.stageSizeButton.refresh();
 
     this.step = function () {
         var newPos, newWidth;
@@ -9702,7 +9751,8 @@ StageHandleMorph.prototype.mouseDownLeft = function (pos) {
         } else {
             this.step = null;
             ide.isSmallStage = (ide.stageRatio !== 1);
-            ide.controlBar.stageSizeButton.refresh();
+            // [Adrian]: Remove all references to controlBar
+            //ide.controlBar.stageSizeButton.refresh();
         }
     };
 };

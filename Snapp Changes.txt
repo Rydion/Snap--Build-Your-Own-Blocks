@@ -1,57 +1,59 @@
-﻿Look for [Adrian] in files to find the exact location.
+﻿Snap 6.2.1
+
+Look for [Adrian] in files to find the exact location.
 
 
 object.js
 Remove all references to controlBar.
 
-[7795]
+[7913]
     Replace:
         ide.controlBar.pauseButton.refresh();
     With:
 	    // [Adrian]: Snapp! Remove all references to controlBar
         //ide.controlBar.pauseButton.refresh();
 
-[7862]
+[7977]
+    Replace:
+        ide.controlBar.stopButton.refresh();
+    With:
+	    // [Adrian]: Snapp! Remove all references to controlBar
+        //ide.controlBar.stopButton.refresh();
+
+[8135]
     Replace:
         ide.controlBar.pauseButton.refresh();
     With:
 	    // [Adrian]: Snapp! Remove all references to controlBar
         //ide.controlBar.pauseButton.refresh();
 
-[8026]
+[8164]
     Replace:
-        ide.controlBar.pauseButton.refresh();
+        () => ide.controlBar.pauseButton.refresh()
     With:
 		// [Adrian]: Snapp! Remove all references to controlBar
-        //ide.controlBar.pauseButton.refresh();
-
-[8055]
-    Replace:
-        function () {ide.controlBar.pauseButton.refresh(); }
-    With:
-		// [Adrian]: Snapp! Remove all references to controlBar
-        function () { /*ide.controlBar.pauseButton.refresh();*/ }
+        () => { /*ide.controlBar.pauseButton.refresh()*/ }
 
 
 gui.js
 Remove all references to controlBar.
 Add code to autoload and start the project
 
-[367]
+[352]
     Replace:
         myself.controlBar.hide();
     With:
         // [Adrian]: Remove all references to controlBar
         //myself.controlBar.hide();
 
-[561]
+[616]
     Replace:
         this.createControlBar();
     With:
 		// [Adrian]: Remove all references to controlBar
         //this.createControlBar();
 
-[1757]
+[1900]
     Replace:
         this.controlBar.setPosition(this.logo.topRight());
         this.controlBar.setWidth(this.right() - this.controlBar.left());
@@ -62,71 +64,75 @@ Add code to autoload and start the project
         //this.controlBar.setWidth(this.right() - this.controlBar.left());
         //this.controlBar.fixLayout();
 
-[1799]
+[1940]
     Replace:
         (this.height() - this.controlBar.height() * 2 - padding * 2)
     With:
 		// [Adrian]: Remove all references to controlBar
         (this.height() - 0 * 2 - padding * 2)
 
-[1859]
+[2003]
     Replace:
         this.controlBar.updateLabel();
     With:
 	    // [Adrian]: Remove all references to controlBar
         //this.controlBar.updateLabel();
 
-[1884]
+[2025]
     Replace:
         this.controlBar.height() + 10
     With:
 		// [Adrian]: Remove all references to controlBar
         10
 
-[2102]
+[2266]
     Replace:
         this.controlBar.refreshSlider();
     With:
 	    // [Adrian]: Remove all references to controlBar
         //this.controlBar.refreshSlider();
 
-[2117]
+[2281]
     Replace:
         this.controlBar.startButton.labelString = new SymbolMorph('flash', 14);
-        his.controlBar.startButton.drawNew();
+        this.controlBar.startButton.createLabel();
         this.controlBar.startButton.fixLayout();
+        this.controlBar.startButton.rerender();
     With:
         // [Adrian]: Remove all references to controlBar
         //this.controlBar.startButton.labelString = new SymbolMorph('flash', 14);
-        //this.controlBar.startButton.drawNew();
+        //this.controlBar.startButton.createLabel();
         //this.controlBar.startButton.fixLayout();
+        //this.controlBar.startButton.rerender();
 
-[2126]
+[2291]
     Replace:
         this.controlBar.startButton.labelString = new SymbolMorph('flag', 14);
-        this.controlBar.startButton.drawNew();
+        this.controlBar.startButton.createLabel();
         this.controlBar.startButton.fixLayout();
+        this.controlBar.startButton.rerender();
     With:
         // [Adrian]: Remove all references to controlBar
         //this.controlBar.startButton.labelString = new SymbolMorph('flag', 14);
-        //this.controlBar.startButton.drawNew();
+        //this.controlBar.startButton.createLabel();
         //this.controlBar.startButton.fixLayout();
+        //this.controlBar.startButton.rerender();
 
-[4725]
+[5075]
     Replace:
         this.controlBar.updateLabel();
     With:
 	    // [Adrian]: Remove all references to controlBar
         //this.controlBar.updateLabel();
 
-[4760]
+[5109]
     Replace:
         this.controlBar.updateLabel();
     With:
 	    // [Adrian]: Remove all references to controlBar
         //this.controlBar.updateLabel();
 
-[4942]
+[5291]
     Replace:
         this.controlBar.cloudButton,
         this.controlBar.projectButton,
@@ -141,7 +147,7 @@ Add code to autoload and start the project
         //this.controlBar.steppingButton,
         //this.controlBar.stageSizeButton,
 
-[4967]
+[5315]
     Replace:
         this.controlBar.setColor(this.color);
         this.controlBar.appModeButton.refresh();
@@ -150,7 +156,7 @@ Add code to autoload and start the project
         //this.controlBar.setColor(this.color);
         //this.controlBar.appModeButton.refresh();
 
-[4986]
+[5334]
     Replace:
         this.controlBar.setColor(this.frameColor);
     With:
@@ -164,41 +170,41 @@ Add code to autoload and start the project
 	    // [Adrian]: Remove all references to controlBar
         //myself.controlBar.stageSizeButton.refresh();
 
-[5137]
+[5480]
 	Replace:
 		pos = this.controlBar.settingsButton.bottomLeft(),
 	With:
 		// [Adrian]: Remove all references to controlBar
 		pos = 0,
-[5166]
+[5522]
 	Replace:
 		pos = this.controlBar.settingsButton.bottomLeft(),
 	With:
 		// [Adrian]: Remove all references to controlBar
 		pos = 0,
 
-[5386]
+[5795]
     Replace:
         this.controlBar.stageSizeButton.refresh();
     With:
 		// [Adrian]: Remove all references to controlBar
         //this.controlBar.stageSizeButton.refresh();
 
-[9366]
+[9710]
     Replace:
         ide.controlBar.stageSizeButton.refresh();
     With:
         // [Adrian]: Remove all references to controlBar
         //ide.controlBar.stageSizeButton.refresh();
 
-[9379]
+[9724]
     Replace:
         ide.controlBar.stageSizeButton.refresh();
     With:
         // [Adrian] Snapp
         //ide.controlBar.stageSizeButton.refresh();
 
-[556]
+[611]
     Add:
         // [Adrian]: Snapp! Add code to force project to start automatically after all resources have been loaded.
         this.rawOpenProjectString(this.snapproject);
